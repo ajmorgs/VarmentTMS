@@ -7,7 +7,7 @@ A headless microservice will automatically assign tickets to technicians. Anothe
 
 ## Storyboard
 
-[Storyboard on Invision] {https://projects.invisionapp.com/prototype/mockup2-ckta9nyr300cbpg01li1h2q7j/play/00801a7f}
+[Storyboard on Invision] (https://projects.invisionapp.com/prototype/mockup2-ckta9nyr300cbpg01li1h2q7j/play/00801a7f)
 
 ## Requirements
 
