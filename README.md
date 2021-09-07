@@ -11,7 +11,81 @@ A headless microservice will automatically assign tickets to technicians. Anothe
 
 ## Requirements
 
-Given when thens will go here
+### Requirement 1: Submit Ticket
+
+**Scenario**
+
+As a client, I want to be able to submit a help desk ticket, so that my issue will be assigned to a technician.
+
+**Examples**
+
+#### 1.1
+
+**Given:** The user has selected client 
+
+**Given:** The date is 09/07/2021
+
+**When:** The user completes the form with the following inputs:
+
+    First Name: John
+    Last Name: Smith
+    Work Email: johnsmith@company.com
+    Ticket Title:  I cannot connect to the VPN
+
+**Then:**  A helpdesk ticket will be saved with an auto-incrementing ID and the following attributes:
+
+    Author: John Smith
+    Ticket Title:  I cannot connect to the VPN
+    Submission Date: 09/07/2021
+
+#### 1.2
+
+**Given:** The user has selected client 
+
+**Given:** The date is 09/07/2021
+
+**When:** The user completes the form with the following inputs: 
+
+    First Name: John
+    Last Name: Smith
+    Work Email: johnsmith
+    Ticket Title:  I cannot connect to the VPN
+    
+**Then:** Nothing will be saved and the user will be asked to check their email
+
+
+### Requirement 2: See tickets
+
+**Scenario**
+
+As a technician, I want to be able to see a list of helpdesk tickets that are assigned to me, so that I can complete my assigned tasks.
+
+**Examples**
+
+#### 2.1
+
+**Given:** The user with the username: “janesmith@company.com” is a technician and has tickets assigned to her
+
+**When:** The user requests a list of helpdesk tickets for user with the username: “janesmith@company.com”
+
+**Then:** All tickets for the user with the username: “janesmith@company.com” are returned
+
+#### 2.2
+
+**Given:** The user with the username: “johnsmith@company.com” is a client
+
+**When:** The user requests a list of helpdesk tickets for user with the username: “johnsmith@company.com”
+
+**Then:** An error is returned informing the user that “johnsmith@company.com” is not a technician
+
+#### 2.3
+
+**Given:** The user with the username: “janesmith@company.com” is a technician and has no tickets assigned to her
+
+**When:** The user requests a list of helpdesk tickets for user with the username: “janesmith@company.com”
+
+**Then:** The user is given a message that “janesmith@company.com” has no tickets assigned to her
+
 
 ## Class Diagram
 
