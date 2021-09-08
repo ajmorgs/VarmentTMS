@@ -89,15 +89,49 @@ As a technician, I want to be able to see a list of helpdesk tickets that are as
 
 ## Class Diagram
 
-![ClassDiagram](https://user-images.githubusercontent.com/18401408/132527467-f147b55a-6c9e-4bc5-8742-5fb2b3687761.png)
+![ClassDiagram](https://user-images.githubusercontent.com/18401408/132529714-e145069c-2609-40b5-bb7b-fde0dfa46099.png)
 
 ### Class Diagram Description
 
-Brief class descriptions will go here (even though we haven't covered these in the course yet)
+**VarmentTMSApplication** - application startup
+
+**TicketController** - route requests from browser
+
+**Ticket** - class for ticket objects
+
+**TicketService** - implementation of ITicketService interface
+
+**TicketDAO** - implementation of ITicketDAO interface
+
+**TicketRepository** - provides access to data store
+
+**AssignTicketService** - headless service that assigns new tickets to technicians
 
 ## JSON Schema
 
-This is what we plan to export to another app.
+{
+  "type" : "object",
+  "properties" : {
+	  "firstname": {
+		"type": "string"
+	  },
+	  "lastname": {
+		"type": "string"
+	  },
+	  "email": {
+		"type": "string"
+	  },
+	  "status": {
+		"type": "string"
+	  },
+	  "assignee": {
+		"type": "string"
+	  },
+	  "id": {
+		"type": "integer"
+	  }
+  }
+}
 
 ## Team Members and Roles
 
