@@ -89,7 +89,7 @@ As a technician, I want to be able to see a list of helpdesk tickets that are as
 
 ## Class Diagram
 
-Imported UML drawing will show here
+![ClassDiagram](https://user-images.githubusercontent.com/18401408/132527467-f147b55a-6c9e-4bc5-8742-5fb2b3687761.png)
 
 ### Class Diagram Description
 
