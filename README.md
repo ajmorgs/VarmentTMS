@@ -139,7 +139,9 @@ UI Specialist: Mark Petro
 
 Business Logic/Persistence: Vakho Akobia
 
-DevOps/Product Owner/Scrum Master/Github Admin: Tony Morgan
+DevOps: John Stichweh
+
+Product Owner/Scrum Master/Github Admin: Tony Morgan
 
 ## Standup 
 
