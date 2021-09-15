@@ -8,15 +8,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class VarmentTmsApplicationTests {
 
-    @Autowired
-    private ticket;
+    Ticket ticket;
 
     @Test
     void contextLoads() {
     }
 
     @Test
-    void testRegExOfEmail() {
+    void testRegExOfEmail(){
         
         givenUserHasSubmittedATicket();
         thenAskUserToCheckEmail();
@@ -29,9 +28,15 @@ class VarmentTmsApplicationTests {
 
     }
 
-    private void whenUserSubmitsInvalidEmailField() {
+    private void whenUserSubmitsInvalidEmailField(){
 
-        ticket = new Ticket();
+        try {
+            ticket = new Ticket("John", "Smith", "mingusbingus");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
     }
 
     private void thenAskUserToCheckEmail() {

@@ -14,7 +14,7 @@ public class TicketController {
 Handle request to root of application
  */
     @RequestMapping("/")
-    public Sting index(){
+    public String index(){
         return "start";
     }
 
