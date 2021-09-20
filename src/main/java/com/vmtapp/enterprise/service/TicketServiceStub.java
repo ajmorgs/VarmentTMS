@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SpecimenServiceStub implements ITicketService{
+public class TicketServiceStub implements ITicketService{
 
     @Override
     public int checkUserRole(String email) {
@@ -23,9 +23,12 @@ public class SpecimenServiceStub implements ITicketService{
 
     @Override
     public List<Ticket> fetchByEmail(String email) {
-        List<Ticket> userTickets = new ArrayList<>();
+        List<Ticket> userTickets = new ArrayList<>();   // technician's tickets
 
-        Ticket ticketOne = new Ticket();
+        if (email.equals("janesmith@company.com"))  //jane smith has no tickets
+            return null;
+
+
         return userTickets;
     }
 }

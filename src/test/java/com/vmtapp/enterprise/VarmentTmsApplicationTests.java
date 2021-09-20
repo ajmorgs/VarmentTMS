@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class VarmentTmsApplicationTests {
@@ -17,6 +16,7 @@ class VarmentTmsApplicationTests {
     @Autowired
     private ITicketService ticketService;
     private List<Ticket> tickets;
+    private int userRole;
 
     @Test
     void contextLoads() {
@@ -34,19 +34,20 @@ class VarmentTmsApplicationTests {
     }
 
     private void whenUserRequestsTicketsForJohn() {
-        if(ticketService.checkUserRole("johnsmith@company.com") == 2){
-            tickets = ticketService.fetchByEmail("johnsmith@company.com");
-        }
-        else
-            thenReturnErrorJohnIsNotTechnician();
 
+        // check if user is a technician
+        userRole = ticketService.checkUserRole("johnsmith@company.com");
+
+
+        // tickets are actually fetched only if the user is confirmed as a technician. That won't happen here
     }
 
     private void thenReturnErrorJohnIsNotTechnician() {
-        fail("user johnsmith@company.com is not a technician");
+        assertEquals(1, userRole);  // role 1 = client
+        System.out.println("user johnsmith@company.com is not a technician");
     }
 
-    @Test
+    @Test   //Test case 2.3
     void fetchTicketsByEmail_returnsNull(){
 
         givenUserJaneIsATechnicianWithNoTickets();
@@ -58,9 +59,21 @@ class VarmentTmsApplicationTests {
     }
 
     private void whenUserRequestsTicketsForJane() {
+
+
+        // check if user is a technician
+        int userRole = ticketService.checkUserRole("janesmith@company.com");
+        assertEquals(2, userRole);  // role 2 = technician
+
+        tickets = ticketService.fetchByEmail("janesmith@company.com");
+
+
+
     }
 
     private void thenReturnNoTickets() {
+        assertNull(tickets);    // jane has no tickets assigned
+        System.out.println("Username janesmith@company.com has no tickets assigned");
     }
 
 }
