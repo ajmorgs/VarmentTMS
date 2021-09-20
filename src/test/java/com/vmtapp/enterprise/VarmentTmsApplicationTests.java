@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 @SpringBootTest
 class VarmentTmsApplicationTests {
 
@@ -31,10 +34,16 @@ class VarmentTmsApplicationTests {
     }
 
     private void whenUserRequestsTicketsForJohn() {
-        tickets = ticketService.fetchByEmail("johnsmith@company.com");
+        if(ticketService.checkUserRole("johnsmith@company.com") == 2){
+            tickets = ticketService.fetchByEmail("johnsmith@company.com");
+        }
+        else
+            thenReturnErrorJohnIsNotTechnician();
+
     }
 
     private void thenReturnErrorJohnIsNotTechnician() {
+        fail("user johnsmith@company.com is not a technician");
     }
 
     @Test

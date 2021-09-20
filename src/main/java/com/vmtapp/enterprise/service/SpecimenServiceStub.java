@@ -9,7 +9,17 @@ import java.util.List;
 @Component
 public class SpecimenServiceStub implements ITicketService{
 
-    // need some methods here - fetch and return error message, fetch and return no tickets assigned.
+    @Override
+    public int checkUserRole(String email) {
+        int statusCode = 0;
+
+        if(email.equals("johnsmith@company.com"))
+            statusCode = 1; // client
+        if(email.equals("janesmith@company.com"))
+            statusCode = 2; // technician
+
+        return statusCode;
+    }
 
     @Override
     public List<Ticket> fetchByEmail(String email) {
