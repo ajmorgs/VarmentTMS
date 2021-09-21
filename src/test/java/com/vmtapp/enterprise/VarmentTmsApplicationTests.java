@@ -17,11 +17,12 @@ class VarmentTmsApplicationTests {
     private ITicketService ticketService;
     private List<Ticket> tickets;
     private int userRole;
+    Ticket ticket;
 
     @Test
     void contextLoads() {
     }
-
+  
     @Test   // Test case 2.2
     void fetchTicketsByEmail_returnsErrorMessage(){
         givenUserJohnIsAClient();
@@ -74,6 +75,36 @@ class VarmentTmsApplicationTests {
     private void thenReturnNoTickets() {
         assertNull(tickets);    // jane has no tickets assigned
         System.out.println("Username janesmith@company.com has no tickets assigned");
+    }
+
+}
+
+    @Test
+    void testRegExOfEmail(){
+        
+        givenUserHasSubmittedATicket();
+        thenAskUserToCheckEmail();
+        whenUserSubmitsInvalidEmailField();
+
+        
+    }
+
+    private void givenUserHasSubmittedATicket() {
+
+    }
+
+    private void whenUserSubmitsInvalidEmailField(){
+
+        try {
+            ticket = new Ticket("John", "Smith", "mingusbingus");
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+    }
+
+    private void thenAskUserToCheckEmail() {
     }
 
 }
