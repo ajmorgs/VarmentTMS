@@ -23,6 +23,11 @@ Handle request to root of application
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @RequestMapping("/ticket/{assignee}")
+    public ResponseEntity fetchTicketsByAssignee(@PathVariable("assignee") String assignee){
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @RequestMapping("/ticket/{id}")
     public ResponseEntity fetchTicketById(@PathVariable("id") String id){
         return new ResponseEntity(HttpStatus.OK);

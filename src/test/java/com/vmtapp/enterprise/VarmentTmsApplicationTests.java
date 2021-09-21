@@ -1,13 +1,22 @@
 package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.Ticket;
+import com.vmtapp.enterprise.service.ITicketService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class VarmentTmsApplicationTests {
 
+    @Autowired
+    ITicketService ticketService;
     Ticket ticket;
+    ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
     @Test
     void contextLoads() {
@@ -20,7 +29,6 @@ class VarmentTmsApplicationTests {
         thenAskUserToCheckEmail();
         whenUserSubmitsInvalidEmailField();
 
-        
     }
 
     private void givenUserHasSubmittedATicket() {
@@ -40,5 +48,26 @@ class VarmentTmsApplicationTests {
 
     private void thenAskUserToCheckEmail() {
     }
+
+    @Test
+    void fetchTicketsForJaneSmith(){
+        givenTicketDataIsAvailable();
+        whenSearchTicketsForJaneSmith();
+        thenReturnListOfTicketForJaneSmith();
+    }
+
+    private void thenReturnListOfTicketForJaneSmith() {
+        int ticketListSize = tickets.size();
+        assertEquals(3,ticketListSize);
+    }
+
+    private void whenSearchTicketsForJaneSmith() {
+       tickets = ticketService.fetchTicketsByAssignee("janesmith@company.com");
+
+    }
+    private void givenTicketDataIsAvailable() {
+
+    }
+
 
 }
