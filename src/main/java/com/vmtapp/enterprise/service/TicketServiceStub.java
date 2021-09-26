@@ -1,5 +1,6 @@
 package com.vmtapp.enterprise.service;
 
+import com.vmtapp.enterprise.dao.ITicketDao;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +9,15 @@ import java.util.List;
 
 @Component
 public class TicketServiceStub implements ITicketService {
+
+    private ITicketDao ticketDao;
+
+    public TicketServiceStub(){}
+
+    public TicketServiceStub(ITicketDao ticketDao){
+
+        this.ticketDao = ticketDao;
+    }
 
     @Override
     public ArrayList<Ticket> fetchTicketsByAssignee(String assignee) {
@@ -21,5 +31,10 @@ public class TicketServiceStub implements ITicketService {
         ticketsToReturn.add(ticket);
 
         return ticketsToReturn;
+    }
+
+    @Override
+    public Ticket save(Ticket ticket) {
+        return ticketDao.save(ticket);
     }
 }

@@ -12,6 +12,7 @@ public @Data class Ticket {
     public int id;
     public  String status;
     public  String assignee;
+    public String description;
 
     public Ticket(String firstname, String lastname, String email) {
         this.firstname = firstname;
