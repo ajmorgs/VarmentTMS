@@ -1,5 +1,6 @@
 package com.vmtapp.enterprise.service;
 
+import com.vmtapp.enterprise.dao.ITicketDao;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,15 @@ public class TicketServiceStub implements ITicketService{
 
 
 
+    private ITicketDao ticketDao;
+
+    public TicketServiceStub(){}
+
+    public TicketServiceStub(ITicketDao ticketDao){
+
+        this.ticketDao = ticketDao;
+    }
+
     @Override
     public ArrayList<Ticket> fetchTicketsByAssignee(String assignee) {
         ArrayList<Ticket> ticketsToReturn = new ArrayList<Ticket>();
@@ -67,5 +77,10 @@ public class TicketServiceStub implements ITicketService{
         Matcher matcher = pattern.matcher(email);
 
         return matcher.find();
+    }
+
+    @Override
+    public Ticket save(Ticket ticket) {
+        return ticketDao.save(ticket);
     }
 }

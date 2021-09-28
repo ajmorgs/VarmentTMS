@@ -1,10 +1,14 @@
 package com.vmtapp.enterprise;
 
+import com.vmtapp.enterprise.dao.ITicketDao;
 import com.vmtapp.enterprise.dto.Ticket;
 import com.vmtapp.enterprise.service.ITicketService;
+import com.vmtapp.enterprise.service.TicketServiceStub;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 import java.util.List;
@@ -20,8 +24,11 @@ class VarmentTmsApplicationTests {
     @Autowired
     private ITicketService ticketService;
     private int userRole;
-    Ticket ticket;
+    private Ticket ticket = new Ticket();
     List<Ticket> tickets = new ArrayList<>();
+
+    @MockBean
+    private ITicketDao ticketDAO;
 
     @Test
     void contextLoads() {
@@ -124,6 +131,29 @@ class VarmentTmsApplicationTests {
     }
     private void givenTicketDataIsAvailable() {
 
+    }
+
+    @Test
+    void saveTicketValidateAttributes(){
+        givenUserIsClient();
+        whenPostTicketWithAttributes();
+        thenReturnSavedTicketWithAttributes();
+    }
+
+    private void givenUserIsClient() {
+        Mockito.when(ticketDAO.save(ticket)).thenReturn(ticket);
+        ticketService = new TicketServiceStub(ticketDAO);
+    }
+
+    private void whenPostTicketWithAttributes(){
+        ticket.setFirstname("John");
+        ticket.setLastname("Smith");
+        ticket.setEmail("johnsmith@company.com");
+    }
+
+    private void thenReturnSavedTicketWithAttributes() {
+        Ticket createdTicket = ticketService.save(ticket);
+        assertEquals(ticket, createdTicket);
     }
 
 
