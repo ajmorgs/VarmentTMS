@@ -9,5 +9,4 @@ public @Data class Ticket {
     public int id;
     public  String status;
     public  String assignee;
-
 }
