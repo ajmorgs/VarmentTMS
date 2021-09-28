@@ -13,20 +13,6 @@ public @Data class Ticket {
     public  String status;
     public  String assignee;
 
-    public Ticket(String firstname, String lastname, String email) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-
-        if(emailValidation(email))
-        {
-            this.email = email;
-        }
-        else
-        {
-          //  throw new Exception("Not a real Email Address!");
-        }
-    }
-
     private boolean emailValidation(String email)
     {
         String emailRegEx = "^[A-Za-z0-9+_.-]+@(.+)$";
