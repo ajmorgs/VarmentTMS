@@ -19,10 +19,9 @@ class VarmentTmsApplicationTests {
 
     @Autowired
     private ITicketService ticketService;
-    private List<Ticket> tickets;
     private int userRole;
     Ticket ticket;
-    ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+    List<Ticket> tickets = new ArrayList<>();
 
     @Test
     void contextLoads() {
@@ -79,10 +78,9 @@ class VarmentTmsApplicationTests {
 
     private void thenReturnNoTickets() {
         assertNull(tickets);    // jane has no tickets assigned
-        System.out.println("Username janesmith@company.com has no tickets assigned");
     }
 
-}
+
 
     @Test
     void testRegExOfEmail(){
