@@ -32,7 +32,7 @@ public class TicketServiceStub implements ITicketService {
         return ticketsToReturn;
     }
 
-    private boolean emailValidation(String email)
+    public static boolean emailValidation(String email)
     {
         String emailRegEx = "^[A-Za-z0-9+_.-]+@(.+)$";
 

@@ -2,6 +2,7 @@ package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.Ticket;
 import com.vmtapp.enterprise.service.ITicketService;
+import com.vmtapp.enterprise.service.TicketServiceStub;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,16 +25,12 @@ class VarmentTmsApplicationTests {
 
     @Test
     void testRegExOfEmail(){
-        
-        givenUserHasSubmittedATicket();
+
         thenAskUserToCheckEmail();
         whenUserSubmitsInvalidEmailField();
 
     }
 
-    private void givenUserHasSubmittedATicket() {
-
-    }
 
     private void whenUserSubmitsInvalidEmailField(){
 
@@ -42,7 +39,7 @@ class VarmentTmsApplicationTests {
             ticket.setFirstname("John");
             ticket.setLastname("smith");
             ticket.setEmail("mingusbingus");
-
+            assertEquals(false, TicketServiceStub.emailValidation(ticket.getEmail()));
     }
 
     private void thenAskUserToCheckEmail() {
