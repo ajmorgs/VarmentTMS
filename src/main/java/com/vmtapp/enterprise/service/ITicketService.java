@@ -12,4 +12,5 @@ public interface ITicketService {
      * @return ArrayList<Ticket>
     * */
     ArrayList<Ticket> fetchTicketsByAssignee(String assignee);
+
 }

@@ -37,12 +37,11 @@ class VarmentTmsApplicationTests {
 
     private void whenUserSubmitsInvalidEmailField(){
 
-        try {
-            ticket = new Ticket("John", "Smith", "mingusbingus");
-        }catch(Exception e)
-        {
-            System.out.println(e);
-        }
+
+            ticket = new Ticket();
+            ticket.setFirstname("John");
+            ticket.setLastname("smith");
+            ticket.setEmail("mingusbingus");
 
     }
 
