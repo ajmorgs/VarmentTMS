@@ -13,7 +13,7 @@ public @Data class Ticket {
     public  String status;
     public  String assignee;
 
-    public Ticket(String firstname, String lastname, String email) throws Exception {
+    public Ticket(String firstname, String lastname, String email) {
         this.firstname = firstname;
         this.lastname = lastname;
 
@@ -23,7 +23,7 @@ public @Data class Ticket {
         }
         else
         {
-            throw new Exception("Not a real Email Address!");
+          //  throw new Exception("Not a real Email Address!");
         }
     }
 

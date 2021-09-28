@@ -6,9 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+
+
 
 @SpringBootTest
 class VarmentTmsApplicationTests {
@@ -18,6 +22,7 @@ class VarmentTmsApplicationTests {
     private List<Ticket> tickets;
     private int userRole;
     Ticket ticket;
+    ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
     @Test
     void contextLoads() {
@@ -86,7 +91,6 @@ class VarmentTmsApplicationTests {
         thenAskUserToCheckEmail();
         whenUserSubmitsInvalidEmailField();
 
-        
     }
 
     private void givenUserHasSubmittedATicket() {
@@ -106,5 +110,27 @@ class VarmentTmsApplicationTests {
 
     private void thenAskUserToCheckEmail() {
     }
+
+
+    @Test
+    void fetchTicketsForJaneSmith(){
+        givenTicketDataIsAvailable();
+        whenSearchTicketsForJaneSmith();
+        thenReturnListOfTicketForJaneSmith();
+    }
+
+    private void thenReturnListOfTicketForJaneSmith() {
+        int ticketListSize = tickets.size();
+        assertEquals(3,ticketListSize);
+    }
+
+    private void whenSearchTicketsForJaneSmith() {
+       tickets = ticketService.fetchTicketsByAssignee("janesmith@company.com");
+
+    }
+    private void givenTicketDataIsAvailable() {
+
+    }
+
 
 }
