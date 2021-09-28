@@ -24,7 +24,7 @@ class VarmentTmsApplicationTests {
     @Autowired
     private ITicketService ticketService;
     private int userRole;
-    Ticket ticket;
+    private Ticket ticket = new Ticket();
     List<Ticket> tickets = new ArrayList<>();
 
     @MockBean
@@ -145,7 +145,7 @@ class VarmentTmsApplicationTests {
         ticketService = new TicketServiceStub(ticketDAO);
     }
 
-    private void whenPostTicketWithAttributes() {
+    private void whenPostTicketWithAttributes(){
         ticket.setFirstname("John");
         ticket.setLastname("Smith");
         ticket.setEmail("johnsmith@company.com");
@@ -153,7 +153,7 @@ class VarmentTmsApplicationTests {
 
     private void thenReturnSavedTicketWithAttributes() {
         Ticket createdTicket = ticketService.save(ticket);
-        assertEquals(createdTicket, ticket);
+        assertEquals(ticket, createdTicket);
     }
 
 
