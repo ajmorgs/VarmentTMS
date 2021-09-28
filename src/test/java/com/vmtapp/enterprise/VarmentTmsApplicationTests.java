@@ -1,19 +1,23 @@
 package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.Ticket;
-<<<<<<< Updated upstream
-=======
 import com.vmtapp.enterprise.service.ITicketService;
 import com.vmtapp.enterprise.service.TicketServiceStub;
->>>>>>> Stashed changes
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 class VarmentTmsApplicationTests {
 
+    @Autowired
+    ITicketService ticketService;
     Ticket ticket;
+    ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
     @Test
     void contextLoads() {
@@ -21,12 +25,11 @@ class VarmentTmsApplicationTests {
 
     @Test
     void testRegExOfEmail(){
-        
+
         givenUserHasSubmittedATicket();
         thenAskUserToCheckEmail();
         whenUserSubmitsInvalidEmailField();
 
-        
     }
 
     private void givenUserHasSubmittedATicket() {
@@ -35,25 +38,37 @@ class VarmentTmsApplicationTests {
 
     private void whenUserSubmitsInvalidEmailField(){
 
-<<<<<<< Updated upstream
-        try {
-            ticket = new Ticket("John", "Smith", "mingusbingus");
-        }catch(Exception e)
-        {
-            System.out.println(e);
-        }
-=======
 
             ticket = new Ticket();
             ticket.setFirstname("John");
             ticket.setLastname("smith");
             ticket.setEmail("mingusbingus");
             assertEquals(false, TicketServiceStub.emailValidation(ticket.getEmail()));
->>>>>>> Stashed changes
 
     }
 
     private void thenAskUserToCheckEmail() {
     }
+
+    @Test
+    void fetchTicketsForJaneSmith(){
+        givenTicketDataIsAvailable();
+        whenSearchTicketsForJaneSmith();
+        thenReturnListOfTicketForJaneSmith();
+    }
+
+    private void thenReturnListOfTicketForJaneSmith() {
+        int ticketListSize = tickets.size();
+        assertEquals(3,ticketListSize);
+    }
+
+    private void whenSearchTicketsForJaneSmith() {
+       tickets = ticketService.fetchTicketsByAssignee("janesmith@company.com");
+
+    }
+    private void givenTicketDataIsAvailable() {
+
+    }
+
 
 }
