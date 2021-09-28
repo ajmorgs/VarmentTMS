@@ -1,7 +1,7 @@
 package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.Ticket;
-import com.vmtapp.enterprise.service.ITicketService;
+import com.vmtapp.enterprise.service.TicketServiceStub;
 import com.vmtapp.enterprise.service.TicketServiceStub;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class VarmentTmsApplicationTests {
 
     @Autowired
-    ITicketService ticketService;
+    TicketServiceStub ticketService;
     Ticket ticket;
     ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
