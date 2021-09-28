@@ -96,12 +96,10 @@ class VarmentTmsApplicationTests {
     }
 
     private void whenUserSubmitsInvalidEmailField(){
-
-        ticket = new Ticket();
-        ticket.setFirstname("John");
-        ticket.setLastname("smith");
-        ticket.setEmail("mingusbingus");
-
+            ticket = new Ticket();
+            ticket.setFirstname("John");
+            ticket.setLastname("smith");
+            ticket.setEmail("mingusbingus");
     }
 
     private void thenAskUserToCheckEmail() {
