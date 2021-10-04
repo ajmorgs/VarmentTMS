@@ -38,7 +38,7 @@ public class TicketServiceStub implements ITicketService{
     }
 
 
-
+    @Autowired
     private ITicketDao ticketDao;
 
     public TicketServiceStub(){}
