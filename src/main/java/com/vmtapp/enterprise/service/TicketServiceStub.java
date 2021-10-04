@@ -2,6 +2,7 @@ package com.vmtapp.enterprise.service;
 
 import com.vmtapp.enterprise.dao.ITicketDao;
 import com.vmtapp.enterprise.dto.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class TicketServiceStub implements ITicketService{
     }
 
 
-
+   @Autowired
     private ITicketDao ticketDao;
 
     public TicketServiceStub(){}
