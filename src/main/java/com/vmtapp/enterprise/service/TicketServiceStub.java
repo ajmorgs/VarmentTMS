@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.IOException;
 
 @Component
 public class TicketServiceStub implements ITicketService{
@@ -37,7 +38,7 @@ public class TicketServiceStub implements ITicketService{
     }
 
 
-   @Autowired
+
     private ITicketDao ticketDao;
 
     public TicketServiceStub(){}
@@ -81,7 +82,7 @@ public class TicketServiceStub implements ITicketService{
     }
 
     @Override
-    public Ticket save(Ticket ticket) {
+    public Ticket save(Ticket ticket) throws Exception{
         return ticketDao.save(ticket);
     }
 }

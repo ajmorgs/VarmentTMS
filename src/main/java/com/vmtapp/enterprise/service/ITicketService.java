@@ -29,5 +29,5 @@ public interface ITicketService {
     * */
     ArrayList<Ticket> fetchTicketsByAssignee(String assignee);
 
-    Ticket save(Ticket ticket);
+    Ticket save(Ticket ticket) throws Exception;
 }

@@ -134,7 +134,7 @@ class VarmentTmsApplicationTests {
     }
 
     @Test
-    void saveTicketValidateAttributes(){
+    void saveTicketValidateAttributes() throws Exception{
         givenUserIsClient();
         whenPostTicketWithAttributes();
         thenReturnSavedTicketWithAttributes();
@@ -151,7 +151,7 @@ class VarmentTmsApplicationTests {
         ticket.setEmail("johnsmith@company.com");
     }
 
-    private void thenReturnSavedTicketWithAttributes() {
+    private void thenReturnSavedTicketWithAttributes() throws Exception{
         Ticket createdTicket = ticketService.save(ticket);
         assertEquals(ticket, createdTicket);
     }
