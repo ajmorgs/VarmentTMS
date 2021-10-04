@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -64,17 +65,20 @@ Handle request to root of application
     }
 
     @PostMapping(value="/ticket", consumes="application/json", produces="application/json")
-    public Ticket createTicket(@RequestBody Ticket ticket){
-
+    public ModelAndView createTicket(@RequestBody Ticket ticket){
+       ModelAndView modelAndView = new ModelAndView();
        Ticket newTicket = null;
 
         try {
             newTicket= ticketService.save(ticket);
+            modelAndView.setViewName("success");
         } catch (Exception e) {
             e.printStackTrace();
+            modelAndView.setViewName("error");
         }
 
-        return newTicket;
+        modelAndView.addObject("ticket",ticket);
+        return modelAndView;
     }
 
 
