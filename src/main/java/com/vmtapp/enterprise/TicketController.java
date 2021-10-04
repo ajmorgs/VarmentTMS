@@ -2,6 +2,7 @@ package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.*;
 import com.vmtapp.enterprise.service.ITicketService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,7 +71,7 @@ Handle request to root of application
         try {
             newTicket= ticketService.save(ticket);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         return newTicket;
