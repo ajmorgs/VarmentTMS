@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Varment Ticket Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </head>
 <body>
-Start page for UI for app
+
+<div th:replace="fragments/topnav :: navbar">
+</div>
+<p>UI page for VarmentTMS</p>
+<p th:text="${ticket}"></p>
+    <form action="#" th:action="@{saveTicket}" th:object="${ticket}" method="GET">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="firstname">FirstName</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="firstname" th:field="*{firstname}">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="lastname">LastName</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="lastname" th:field="*{lastname}">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="email">Email</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Email" aria-describedby="inputGroup-sizing-sm" name="email" th:field="*{email}">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="description">Description</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Description" aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{description}">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="status">Status</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Status" aria-describedby="inputGroup-sizing-sm" readonly name="status" th:field="*{status}">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="assignee">Assignee</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Assignee" aria-describedby="inputGroup-sizing-sm" readonly name="assignee" th:field="*{assignee}">
+        </div>
+        <button name="submit" type="submit" value="0">Submit</button>
+    </form>
+
 </body>
 </html>

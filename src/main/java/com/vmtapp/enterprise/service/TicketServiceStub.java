@@ -1,5 +1,6 @@
 package com.vmtapp.enterprise.service;
 
+import com.vmtapp.enterprise.dao.ITicketDao;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,41 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class TicketServiceStub implements ITicketService {
+public class TicketServiceStub implements ITicketService{
+
+    @Override
+    public int checkUserRole(String email) {
+        int statusCode = 0;
+
+        if(email.equals("johnsmith@company.com"))
+            statusCode = 1; // client
+        if(email.equals("janesmith@company.com"))
+            statusCode = 2; // technician
+
+        return statusCode;
+    }
+
+    @Override
+    public List<Ticket> fetchByEmail(String email) {
+        List<Ticket> userTickets = new ArrayList<>();   // technician's tickets
+
+        if (email.equals("janesmith@company.com"))  //jane smith has no tickets
+            return null;
+
+
+        return userTickets;
+    }
+
+
+
+    private ITicketDao ticketDao;
+
+    public TicketServiceStub(){}
+
+    public TicketServiceStub(ITicketDao ticketDao){
+
+        this.ticketDao = ticketDao;
+    }
 
     @Override
     public ArrayList<Ticket> fetchTicketsByAssignee(String assignee) {
@@ -30,6 +65,7 @@ public class TicketServiceStub implements ITicketService {
         ticketsToReturn.add(ticket);
 
         return ticketsToReturn;
+        
     }
 
     public static boolean emailValidation(String email)
@@ -41,5 +77,10 @@ public class TicketServiceStub implements ITicketService {
         Matcher matcher = pattern.matcher(email);
 
         return matcher.find();
+    }
+
+    @Override
+    public Ticket save(Ticket ticket) {
+        return ticketDao.save(ticket);
     }
 }
