@@ -35,9 +35,9 @@ Handle request to root of application
         try{
             ticketService.save(ticket);
         }catch(Exception e){
-
+            e.printStackTrace();
+           return "error";
         }
-
         return "start";
     }
 
@@ -70,12 +70,9 @@ Handle request to root of application
         try {
             newTicket= ticketService.save(ticket);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         return newTicket;
     }
-
-
-
 }
