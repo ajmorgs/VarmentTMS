@@ -29,5 +29,7 @@ public interface ITicketService {
     * */
     ArrayList<Ticket> fetchTicketsByAssignee(String assignee);
 
+    ArrayList<Ticket> fetchTicketsById(String id);
+    List<Ticket> fetchAllTickets();
     Ticket save(Ticket ticket);
 }

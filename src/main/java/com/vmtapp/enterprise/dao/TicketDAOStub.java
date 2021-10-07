@@ -16,4 +16,7 @@ public class TicketDAOStub implements ITicketDao {
         allTickets.add(ticket);
         return ticket;
     }
+    public List fetchAll(){
+        return allTickets;
+    }
 }

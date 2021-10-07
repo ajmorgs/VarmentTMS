@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 public class TicketController {
@@ -42,19 +45,19 @@ Handle request to root of application
     }
 
     @RequestMapping("/ticket")
-    public ResponseEntity fetchAllTickets(){
-        return new ResponseEntity(HttpStatus.OK);
+    public List fetchAllTickets(){
+        return ticketService.fetchAllTickets();
     }
 
-    @RequestMapping("/ticket/{assignee}")
-    public ResponseEntity fetchTicketsByAssignee(@PathVariable("assignee") String assignee){
-        return new ResponseEntity(HttpStatus.OK);
+    @RequestMapping("/tiAket/{assignee}")
+    public ArrayList fetchTicketsByAssignee(@PathVariable("assignee") String assignee){
+        return ticketService.fetchTicketsByAssignee(assignee);
     }
 
     @RequestMapping("/ticket/{id}")
-    public ResponseEntity fetchTicketById(@PathVariable("id") String id){
+    public ArrayList fetchTicketById(@PathVariable("id") String id){
 
-        return new ResponseEntity(HttpStatus.OK);
+        return ticketService.fetchTicketsById(id);
     }
 
     @DeleteMapping("/ticket/{id}")

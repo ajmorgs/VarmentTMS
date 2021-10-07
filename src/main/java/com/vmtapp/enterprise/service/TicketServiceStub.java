@@ -67,7 +67,15 @@ public class TicketServiceStub implements ITicketService{
         return ticketsToReturn;
         
     }
+    public List<Ticket> fetchAllTickets(){
+        return ticketDao.fetchAll();
+    }
+    public ArrayList fetchTicketsById(String id){
+        ArrayList<Ticket> ticketsToReturn = new ArrayList<Ticket>();
 
+        return ticketsToReturn;
+
+    }
     private boolean emailValidation(String email)
     {
         String emailRegEx = "^[A-Za-z0-9+_.-]+@(.+)$";
