@@ -48,7 +48,7 @@ public class TicketServiceStub implements ITicketService{
 
     @Override
     public ArrayList<Ticket> fetchTicketsByAssignee(String assignee) {
-        ArrayList<Ticket> ticketsToReturn = new ArrayList<Ticket>();
+        ArrayList<Ticket> ticketsToReturn = new ArrayList<>();
 
         Ticket ticket = new Ticket();
         ticket.setFirstname("Larry");
@@ -68,6 +68,11 @@ public class TicketServiceStub implements ITicketService{
         
     }
 
+    /**
+     * Validate an Email
+     * @param email email
+     * @return returns true if a string follows 'email' '@' and is followed somewhere by a '.'
+     */
     private boolean emailValidation(String email)
     {
         String emailRegEx = "^[A-Za-z0-9+_.-]+@(.+)$";

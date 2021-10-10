@@ -33,7 +33,8 @@ class VarmentTmsApplicationTests {
     @Test
     void contextLoads() {
     }
-  
+
+    // John is a client -> Test if John has access to tickets -> John is not permitted
     @Test   // Test case 2.2
     void fetchTicketsByEmail_returnsErrorMessage(){
         givenUserJohnIsAClient();
@@ -113,6 +114,7 @@ class VarmentTmsApplicationTests {
     }
 
 
+    // Jane is a technician -> Check Janes role and fetch tickets -> Jane has no tickets
     @Test
     void fetchTicketsForJaneSmith(){
         givenTicketDataIsAvailable();
