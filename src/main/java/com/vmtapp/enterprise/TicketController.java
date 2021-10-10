@@ -24,8 +24,8 @@ Handle request to root of application
         ticket.setEmail("larry@test.com");
         ticket.setAssignee("morganaj@uc.edu");
         ticket.setStatus("unassigned");
-        ticket.setFirstname("Larry");
-        ticket.setLastname("Fine");
+        ticket.setFirstName("Larry");
+        ticket.setLastName("Fine");
         model.addAttribute(ticket);
         return "start";
     }
@@ -35,7 +35,7 @@ Handle request to root of application
         try{
             ticketService.save(ticket);
         }catch(Exception e){
-
+            e.printStackTrace();
         }
 
         return "start";
@@ -70,7 +70,7 @@ Handle request to root of application
         try {
             newTicket= ticketService.save(ticket);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         return newTicket;
