@@ -83,6 +83,7 @@ class VarmentTmsApplicationTests {
 
     }
 
+
     private void thenReturnNoTickets() {
         assertNull(tickets);    // jane has no tickets assigned
     }
