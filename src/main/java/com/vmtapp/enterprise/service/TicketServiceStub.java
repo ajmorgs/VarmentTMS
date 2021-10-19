@@ -16,6 +16,7 @@ public class TicketServiceStub implements ITicketService{
     public int checkUserRole(String email) {
         int statusCode = 0;
 
+
         if(email.equals("johnsmith@company.com"))
             statusCode = 1; // client
         if(email.equals("janesmith@company.com"))
