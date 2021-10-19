@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -76,6 +77,14 @@ Handle request to root of application
         return newTicket;
     }
 
+//    @RequestMapping(value="/error")
+//    public String redirectException(RedirectAttributes redirectAttributes)
+//    {
+//
+//        redirectAttributes.addAttribute("rd", "rdValue");
+//      //  redirectAttributes.addFlashAttribute("fa", faValue);
+//        return "redirect:/errorpage";
+//    }
 
 
 }

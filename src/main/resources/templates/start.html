@@ -14,19 +14,19 @@
 <div th:replace="fragments/topnav :: navbar">
 </div>
 <p>UI page for VarmentTMS</p>
-<p th:text="${ticket}"></p>
+<p class="" th:text="${ticket}"></p>
     <form action="#" th:action="@{saveTicket}" th:object="${ticket}" method="GET">
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="firstname">FirstName</span>
             </div>
-            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="firstname" th:field="*{firstname}">
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="firstname" th:field="*{firstName}">
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="lastname">LastName</span>
             </div>
-            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="lastname" th:field="*{lastname}">
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" name="lastname" th:field="*{lastName}">
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
@@ -38,7 +38,16 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="description">Description</span>
             </div>
-            <input type="text" class="form-control" aria-label="Description" aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{description}">
+            <input type="text" class="form-control" aria-label="Description" list="Description_Search" aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{description}">
+            <datalist id="Description_Search">
+                <option value="Cannot Access Internet"></option>
+                <option value="Cannot Login to VPN"></option>
+                <option value="Cannot Access Email"></option>
+                <option value="Computer Will Not Start"></option>
+                <option value="ID10T Error">ID10T Error</option>
+                <option value="Problem Exists Between Chair and Keyboard (PEBCAK)"></option>
+                <option value="Screen is Blank"></option>
+            </datalist>
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">

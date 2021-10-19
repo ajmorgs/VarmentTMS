@@ -37,7 +37,7 @@ public class TicketServiceStub implements ITicketService{
 
 
 
-    private ITicketDao ticketDao;
+    public ITicketDao ticketDao;
 
     public TicketServiceStub(){}
 
