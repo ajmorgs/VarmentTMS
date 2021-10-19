@@ -14,9 +14,9 @@ class Ticket {
     @GeneratedValue(strategy= GenerationType.AUTO)
     public int id;
     public String firstName;
-    public  String lastName;
-    public  String email;
-    public  String status;
-    public  String assignee;
+    public String lastName;
+    public String email;
+    public String status;
+    public String assignee;
     public String description;
 }
