@@ -4,8 +4,8 @@ import lombok.Data;
 
 public @Data
 class Ticket {
-    public String firstname;
-    public  String lastname;
+    public String firstName;
+    public  String lastName;
     public  String email;
     public int id;
     public  String status;
