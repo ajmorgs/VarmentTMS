@@ -51,16 +51,16 @@ public class TicketServiceStub implements ITicketService{
         ArrayList<Ticket> ticketsToReturn = new ArrayList<Ticket>();
 
         Ticket ticket = new Ticket();
-        ticket.setFirstname("Larry");
-        ticket.setLastname("Fine");
+        ticket.setFirstName("Larry");
+        ticket.setLastName("Fine");
         ticket.setEmail("larry@test.com");
         ticketsToReturn.add(ticket);
-        ticket.setFirstname("Moe");
-        ticket.setLastname("Howard");
+        ticket.setFirstName("Moe");
+        ticket.setLastName("Howard");
         ticket.setEmail("moe@test.com");
         ticketsToReturn.add(ticket);
-        ticket.setFirstname("Shemp");
-        ticket.setLastname("Howard");
+        ticket.setFirstName("Shemp");
+        ticket.setLastName("Howard");
         ticket.setEmail("shemp@test.com");
         ticketsToReturn.add(ticket);
 
@@ -68,7 +68,7 @@ public class TicketServiceStub implements ITicketService{
         
     }
 
-    private boolean emailValidation(String email)
+    public static boolean emailValidation(String email)
     {
         String emailRegEx = "^[A-Za-z0-9+_.-]+@(.+)$";
 

@@ -83,7 +83,6 @@ class VarmentTmsApplicationTests {
 
     }
 
-
     private void thenReturnNoTickets() {
         assertNull(tickets);    // jane has no tickets assigned
     }
@@ -105,8 +104,8 @@ class VarmentTmsApplicationTests {
 
     private void whenUserSubmitsInvalidEmailField(){
             ticket = new Ticket();
-            ticket.setFirstname("John");
-            ticket.setLastname("smith");
+            ticket.setFirstName("John");
+            ticket.setLastName("smith");
             ticket.setEmail("mingusbingus");
     }
 
@@ -147,8 +146,8 @@ class VarmentTmsApplicationTests {
     }
 
     private void whenPostTicketWithAttributes(){
-        ticket.setFirstname("John");
-        ticket.setLastname("Smith");
+        ticket.setFirstName("John");
+        ticket.setLastName("Smith");
         ticket.setEmail("johnsmith@company.com");
     }
 
