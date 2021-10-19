@@ -3,6 +3,7 @@ package com.vmtapp.enterprise.dto;
 import lombok.Data;
 
 public @Data
+
 class Ticket {
     public String firstName;
     public  String lastName;
