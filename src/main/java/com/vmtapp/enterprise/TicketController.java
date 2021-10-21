@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
 
 @Controller
 public class TicketController {
@@ -35,7 +36,9 @@ Handle request to root of application
         try{
             ticketService.save(ticket);
         }catch(Exception e){
-
+            Logger log = Logger.getLogger("ticket");
+            log.info(e.toString());
+            return "error";
         }
 
         return "start";
