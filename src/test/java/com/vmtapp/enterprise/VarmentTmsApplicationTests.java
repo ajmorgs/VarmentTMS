@@ -3,7 +3,7 @@ package com.vmtapp.enterprise;
 import com.vmtapp.enterprise.dao.ITicketDao;
 import com.vmtapp.enterprise.dto.Ticket;
 import com.vmtapp.enterprise.service.ITicketService;
-import com.vmtapp.enterprise.service.TicketServiceStub;
+import com.vmtapp.enterprise.service.TicketService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,7 +142,7 @@ class VarmentTmsApplicationTests {
 
     private void givenUserIsClient() {
         Mockito.when(ticketDAO.save(ticket)).thenReturn(ticket);
-        ticketService = new TicketServiceStub(ticketDAO);
+        ticketService = new TicketService(ticketDAO);
     }
 
     private void whenPostTicketWithAttributes(){

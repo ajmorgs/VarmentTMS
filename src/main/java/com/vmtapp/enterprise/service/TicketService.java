@@ -2,6 +2,7 @@ package com.vmtapp.enterprise.service;
 
 import com.vmtapp.enterprise.dao.ITicketDao;
 import com.vmtapp.enterprise.dto.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class TicketServiceStub implements ITicketService{
+public class TicketService implements ITicketService{
 
     @Override
     public int checkUserRole(String email) {
@@ -35,13 +36,12 @@ public class TicketServiceStub implements ITicketService{
         return userTickets;
     }
 
-
-
+    @Autowired
     private ITicketDao ticketDao;
 
-    public TicketServiceStub(){}
+    public TicketService(){}
 
-    public TicketServiceStub(ITicketDao ticketDao){
+    public TicketService(ITicketDao ticketDao){
 
         this.ticketDao = ticketDao;
     }
@@ -81,6 +81,12 @@ public class TicketServiceStub implements ITicketService{
 
     @Override
     public Ticket save(Ticket ticket) {
+
         return ticketDao.save(ticket);
+    }
+
+    @Override
+    public List<Ticket> fetchAll(){
+        return ticketDao.fetchAll();
     }
 }

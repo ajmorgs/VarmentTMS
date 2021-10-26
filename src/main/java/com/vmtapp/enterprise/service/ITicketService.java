@@ -30,4 +30,6 @@ public interface ITicketService {
     ArrayList<Ticket> fetchTicketsByAssignee(String assignee);
 
     Ticket save(Ticket ticket);
+
+    List<Ticket> fetchAll();
 }

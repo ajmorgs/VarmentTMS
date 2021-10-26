@@ -14,7 +14,7 @@
 </div>
 <p>UI page for VarmentTMS</p>
 <p th:text="${ticket}"></p>
-    <form action="#" th:action="@{saveTicket}" th:object="${ticket}" method="GET">
+    <form action="#" th:action="@{saveTicket}" th:object="${ticket}" method="POST">
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="firstname">FirstName</span>
