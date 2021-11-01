@@ -3,6 +3,7 @@ package com.vmtapp.enterprise.service;
 import com.vmtapp.enterprise.dto.Ticket;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -31,5 +32,5 @@ public interface ITicketService {
 
     Ticket save(Ticket ticket);
 
-    List<Ticket> fetchAll();
+    List<Ticket> fetchAll() throws IOException;
 }
