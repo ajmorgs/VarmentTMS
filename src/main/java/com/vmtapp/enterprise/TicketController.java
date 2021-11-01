@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
@@ -44,9 +46,16 @@ Handle request to root of application
         return "start";
     }
 
-    @RequestMapping("/ticket")
-    public ResponseEntity fetchAllTickets(){
-        return new ResponseEntity(HttpStatus.OK);
+    @GetMapping(value = "/tickets" , consumes="application/json" , produces = "application/json")
+    public String fetchAllTickets(Model model){
+        try {
+            List<Ticket> tickets = ticketService.fetchAll();
+            model.addAttribute("tickets", tickets);
+            return "ticketList";
+        } catch (IOException e){
+            e.printStackTrace();
+            return "error";
+        }
     }
 
     @RequestMapping("/ticket/{assignee}")
