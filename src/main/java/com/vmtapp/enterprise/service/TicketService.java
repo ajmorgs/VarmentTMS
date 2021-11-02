@@ -1,6 +1,7 @@
 package com.vmtapp.enterprise.service;
 
 import com.vmtapp.enterprise.dao.ITicketDao;
+import com.vmtapp.enterprise.dao.TicketSQLDAO;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,9 @@ import java.util.regex.Pattern;
 
 @Component
 public class TicketService implements ITicketService{
+
+    @Autowired
+    TicketSQLDAO ticketSQLDAO;
 
     @Override
     public int checkUserRole(String email) {
@@ -87,6 +91,6 @@ public class TicketService implements ITicketService{
 
     @Override
     public List<Ticket> fetchAll(){
-        return ticketDao.fetchAll();
+        return ticketSQLDAO.fetchAll();
     }
 }

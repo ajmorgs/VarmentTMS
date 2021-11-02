@@ -46,7 +46,7 @@ Handle request to root of application
         return "start";
     }
 
-    @GetMapping(value = "/tickets" , consumes="application/json" , produces = "application/json")
+    @RequestMapping(value = "/ticketList")
     public String fetchAllTickets(Model model){
         try {
             List<Ticket> tickets = ticketService.fetchAll();
