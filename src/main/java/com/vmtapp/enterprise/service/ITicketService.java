@@ -1,6 +1,7 @@
 package com.vmtapp.enterprise.service;
 
 import com.vmtapp.enterprise.dto.Ticket;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
@@ -33,4 +34,6 @@ public interface ITicketService {
     Ticket save(Ticket ticket);
 
     List<Ticket> fetchAll() throws IOException;
+
+    void saveImage(MultipartFile imageFile) throws IOException;
 }

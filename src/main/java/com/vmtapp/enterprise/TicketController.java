@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,8 +44,24 @@ Handle request to root of application
             log.info(e.toString());
             return "error";
         }
-
         return "start";
+    }
+
+    @RequestMapping("/uploadImage")
+    public String uploadImage( @RequestParam("imageFile") MultipartFile imageFile, Model model) {
+        String  returnValue = "start";
+        try {
+            ticketService.saveImage(imageFile);
+            Ticket ticket = new Ticket();
+            model.addAttribute( "ticket", ticket);
+            returnValue = "start";
+        } catch (IOException e) {
+            e.printStackTrace();
+            returnValue = "error";
+        }
+
+
+        return returnValue;
     }
 
     @RequestMapping(value = "/ticketList")

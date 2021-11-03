@@ -51,8 +51,16 @@
             </div>
             <input type="text" class="form-control" aria-label="Assignee" aria-describedby="inputGroup-sizing-sm" readonly name="assignee" th:field="*{assignee}">
         </div>
+
         <button name="submit" type="submit" value="0" aria-label="Submit">Submit</button>
     </form>
+
+<form action="/uploadImage" enctype="multipart/form-data" method="POST">
+    <div class="input-group input-group-sm mb-3">
+        <input id="id" type="hidden" name="ticketId" th:field="*{id}"/>
+        <input type="file" name="imageFile"/>
+    </div>
+</form>
 
 </body>
 </html>

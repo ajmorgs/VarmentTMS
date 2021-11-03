@@ -5,7 +5,15 @@ import com.vmtapp.enterprise.dao.TicketSQLDAO;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -93,4 +101,19 @@ public class TicketService implements ITicketService{
     public List<Ticket> fetchAll(){
         return ticketSQLDAO.fetchAll();
     }
+
+    @Override
+    public void saveImage(MultipartFile imageFile) throws IOException {
+        String folder = "/It4045photo/";
+        // make folder if it does not exist
+        File directory = new File(folder);
+        if (! directory.exists()){
+            directory.mkdir();
+        }
+        byte[] bytes = imageFile.getBytes();
+        Path path = Paths.get(folder + imageFile.getOriginalFilename());
+        Files.write(path, bytes);
+
+    }
+
 }
