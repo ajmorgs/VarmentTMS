@@ -28,6 +28,6 @@ class Ticket {
     public String description;
 
     public String toString(){
-        return description + "\n" + "Assigned to: " + assignee + " Status: " + status;
+        return "Description: " + description + "\n" + "Assigned to: " + assignee + "\n" + " Status: " + status;
     }
 }
