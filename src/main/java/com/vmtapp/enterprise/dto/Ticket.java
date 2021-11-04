@@ -13,7 +13,7 @@ public @Data
 class Ticket {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    public int id;
+    public int TicketId;
     @SerializedName("firstName")
     public String firstName;
     @SerializedName("lastName")
