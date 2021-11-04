@@ -2,7 +2,6 @@ package com.vmtapp.enterprise.dao;
 
 import com.vmtapp.enterprise.dto.Photo;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 
 public interface IPhotoDAO {

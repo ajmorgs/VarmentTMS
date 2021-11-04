@@ -1,7 +1,6 @@
 package com.vmtapp.enterprise.dto;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity

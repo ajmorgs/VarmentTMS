@@ -100,7 +100,6 @@ Handle request to root of application
         try {
             newTicket= ticketService.save(ticket);
         } catch (Exception e) {
-
         }
 
         return newTicket;
