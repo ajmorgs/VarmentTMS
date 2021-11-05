@@ -1,7 +1,9 @@
 package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.*;
+import com.vmtapp.enterprise.dto.Error;
 import com.vmtapp.enterprise.service.ITicketService;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +61,9 @@ Handle request to root of application
         }catch (IOException e){
             Logger log = Logger.getLogger("ticket");
             log.info(e.toString());
-            modelAndView.setViewName("error");
+
+            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
 
         }
@@ -68,14 +72,18 @@ Handle request to root of application
     }
 
     @RequestMapping(value = "/ticketList")
-    public String fetchAllTickets(Model model){
+    public ModelAndView fetchAllTickets(Model model){
+        ModelAndView modelAndView = new ModelAndView();
         try {
             List<Ticket> tickets = ticketService.fetchAll();
             model.addAttribute("tickets", tickets);
-            return "ticketList";
+            modelAndView.setViewName("ticketList");
+            return modelAndView;
         } catch (IOException e){
             e.printStackTrace();
-            return "error";
+            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
         }
     }
 
@@ -107,6 +115,25 @@ Handle request to root of application
         }
 
         return newTicket;
+    }
+
+    /**
+     * Receives error details and prepares a ModelAndView object for it.
+     * @param errorTitle
+     * @param errorDetails
+     * @return modelAndView - a populated ModelAndView object
+     */
+    private ModelAndView createErrorModelAndView (String errorTitle, String errorDetails){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        Error error = new Error();
+        error.setTitle(errorTitle);
+        error.setDetails(errorDetails);
+        modelAndView.setViewName("error");
+        modelAndView.addObject("error", error);
+
+        return modelAndView;
     }
 
 
