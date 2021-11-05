@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,16 +36,35 @@ Handle request to root of application
     }
 
     @RequestMapping("/saveTicket")
-    public String saveTicket(Ticket ticket){
+    public ModelAndView saveTicket(Ticket ticket, @RequestParam("imageFile")MultipartFile imageFile){
+
+        ModelAndView modelAndView = new ModelAndView();
         try{
             ticketService.save(ticket);
         }catch(Exception e){
             Logger log = Logger.getLogger("ticket");
             log.info(e.toString());
-            return "error";
+            modelAndView.setViewName("error");
+            return modelAndView;
         }
 
-        return "start";
+        Photo photo = new Photo();
+
+        try{
+
+            photo.setFileName(imageFile.getOriginalFilename());
+            photo.setTicket(ticket);
+            ticketService.saveImage(imageFile, photo);
+            modelAndView.setViewName("start");
+        }catch (IOException e){
+            Logger log = Logger.getLogger("ticket");
+            log.info(e.toString());
+            modelAndView.setViewName("error");
+            return modelAndView;
+
+        }
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/ticketList")
