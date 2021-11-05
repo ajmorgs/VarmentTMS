@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Controller
@@ -55,9 +56,9 @@ Handle request to root of application
     }
 
     @RequestMapping("/ticket/{id}")
-    public ResponseEntity fetchTicketById(@PathVariable("id") String id){
+    public Optional<Ticket> fetchTicketById(@PathVariable("id") String id) throws Exception {
 
-        return new ResponseEntity(HttpStatus.OK);
+        return ticketService.fetchTicketById(id);
     }
 
     @DeleteMapping("/ticket/{id}")

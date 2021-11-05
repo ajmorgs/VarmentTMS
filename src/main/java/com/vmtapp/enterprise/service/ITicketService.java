@@ -5,6 +5,7 @@ import com.vmtapp.enterprise.dto.Ticket;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public interface ITicketService {
 
@@ -20,16 +21,18 @@ public interface ITicketService {
      * @param email email
      * @return List<Ticket> list of tickets that belong to user
      */
-    List<Ticket> fetchByEmail(String email);
+    List<Ticket> fetchByEmail(String email) throws Exception;
   
       /**
     * fetch list of Tickets with given assignee
      * @param assignee
      * @return ArrayList<Ticket>
     * */
-    ArrayList<Ticket> fetchTicketsByAssignee(String assignee);
+    ArrayList<Ticket> fetchTicketsByAssignee(String assignee) throws Exception;
 
     Ticket save(Ticket ticket);
 
     List<Ticket> fetchAll();
+
+    Optional<Ticket> fetchTicketById(String id) throws Exception;
 }
