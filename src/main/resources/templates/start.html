@@ -14,7 +14,7 @@
 </div>
 <p>UI page for VarmentTMS</p>
 <p th:text="${ticket}"></p>
-    <form action="#" th:action="@{saveTicket}" th:object="${ticket}" method="POST">
+    <form action="#" th:action="@{saveTicket}" th:object="${ticket}" enctype="multipart/form-data" method="POST">
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="firstname">FirstName</span>
@@ -51,6 +51,8 @@
             </div>
             <input type="text" class="form-control" aria-label="Assignee" aria-describedby="inputGroup-sizing-sm" readonly name="assignee" th:field="*{assignee}">
         </div>
+
+        <input type="file" name="imageFile"/>
         <button name="submit" type="submit" value="0" aria-label="Submit">Submit</button>
     </form>
 
