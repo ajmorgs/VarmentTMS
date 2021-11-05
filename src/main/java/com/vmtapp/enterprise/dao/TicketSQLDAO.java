@@ -7,6 +7,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/*
+TicketSQLDAO provides implementation of ITicketDao interface
+methods
+
+@Author Anthony Morgan
+@version 1.0
+* */
+
 @Repository("TicketDAO")
 @Profile({"dev", "default"})
 public class TicketSQLDAO implements ITicketDao {
