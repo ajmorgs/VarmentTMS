@@ -9,10 +9,10 @@ import java.util.List;
 
 @Repository
 @Profile("test")
-public class TicketDAOStub implements ITicketDao {
+public class TicketDAOStub implements ITicketDAO {
 
     List<Ticket> allTickets = new ArrayList<Ticket>();
-    ITicketDao ticketDAO;
+    ITicketDAO ticketDAO;
 
     /**
      * Takes a ticket as a parameter to be saved

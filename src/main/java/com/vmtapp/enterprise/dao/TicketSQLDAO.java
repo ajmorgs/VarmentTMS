@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository("TicketDAO")
 @Profile({"dev", "default"})
-public class TicketSQLDAO implements ITicketDao {
+public class TicketSQLDAO implements ITicketDAO {
 
     @Autowired
     TicketRepository ticketRepository;

@@ -1,11 +1,12 @@
 package com.vmtapp.enterprise.service;
 
 import com.vmtapp.enterprise.dao.IPhotoDAO;
-import com.vmtapp.enterprise.dao.ITicketDao;
+import com.vmtapp.enterprise.dao.ITicketDAO;
 import com.vmtapp.enterprise.dao.TicketSQLDAO;
 import com.vmtapp.enterprise.dto.Photo;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +38,7 @@ public class TicketService implements ITicketService{
     }
 
     @Override
+    @Cacheable("tickets")
     public List<Ticket> fetchByEmail(String email) {
         List<Ticket> userTickets = new ArrayList<>();   // technician's tickets
 
@@ -48,16 +50,17 @@ public class TicketService implements ITicketService{
     }
 
     @Autowired
-    private ITicketDao ticketDao;
+    private ITicketDAO ticketDao;
 
     public TicketService(){}
 
-    public TicketService(ITicketDao ticketDao){
+    public TicketService(ITicketDAO ticketDao){
 
         this.ticketDao = ticketDao;
     }
 
     @Override
+    @Cacheable("ticket")
     public ArrayList<Ticket> fetchTicketsByAssignee(String assignee) {
         ArrayList<Ticket> ticketsToReturn = new ArrayList<Ticket>();
 
@@ -97,6 +100,7 @@ public class TicketService implements ITicketService{
     }
 
     @Override
+    @Cacheable("tickets")
     public List<Ticket> fetchAll(){
         return ticketSQLDAO.fetchAll();
     }

@@ -1,6 +1,6 @@
 package com.vmtapp.enterprise;
 
-import com.vmtapp.enterprise.dao.ITicketDao;
+import com.vmtapp.enterprise.dao.ITicketDAO;
 import com.vmtapp.enterprise.dto.Ticket;
 import com.vmtapp.enterprise.service.ITicketService;
 import com.vmtapp.enterprise.service.TicketService;
@@ -28,7 +28,7 @@ class VarmentTmsApplicationTests {
     List<Ticket> tickets = new ArrayList<>();
 
     @MockBean
-    private ITicketDao ticketDAO;
+    private ITicketDAO ticketDAO;
 
     @Test
     void contextLoads() {
