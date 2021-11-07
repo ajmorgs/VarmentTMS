@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /*
 TicketSQLDAO provides implementation of ITicketDao interface
@@ -31,5 +32,12 @@ public class TicketSQLDAO implements ITicketDao {
     @Override
     public List<Ticket> fetchAll() {
         return null;
+    }
+
+    @Override
+    public Optional<Ticket> fetchTicketById(String id) {
+        Optional<Ticket> ticketToReturn = ticketRepository.findById(Integer.valueOf(id));
+        return ticketToReturn;
+
     }
 }
