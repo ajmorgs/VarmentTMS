@@ -13,7 +13,7 @@ public @Data
 class Ticket {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    public int id;
+    public int ticketId;
     @SerializedName("firstName")
     public String firstName;
     @SerializedName("lastName")
@@ -27,7 +27,6 @@ class Ticket {
     @SerializedName("description")
     public String description;
 
-    public String toString(){
-        return description + "\n" + "Assigned to: " + assignee + " Status: " + status;
+    public String toString(){return "Description: " + description + "\n" + "Assigned to: " + assignee + " Status: " + status;
     }
 }

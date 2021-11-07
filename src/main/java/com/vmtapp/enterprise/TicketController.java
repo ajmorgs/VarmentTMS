@@ -136,6 +136,4 @@ Handle request to root of application
         return modelAndView;
     }
 
-
-
 }
