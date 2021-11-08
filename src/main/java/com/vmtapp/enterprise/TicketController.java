@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -33,6 +34,7 @@ Handle request to root of application
         ticket.setStatus("unassigned");
         ticket.setFirstName("Larry");
         ticket.setLastName("Fine");
+        ticket.setCreationDate(new Date());
         model.addAttribute(ticket);
         return "start";
     }
@@ -130,6 +132,7 @@ Handle request to root of application
         Error error = new Error();
         error.setTitle(errorTitle);
         error.setDetails(errorDetails);
+        error.setTime(new Date());
         modelAndView.setViewName("error");
         modelAndView.addObject("error", error);
 
