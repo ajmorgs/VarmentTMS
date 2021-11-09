@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 
 @Entity
@@ -26,6 +27,9 @@ class Ticket {
     public String assignee;
     @SerializedName("description")
     public String description;
+    @SerializedName("creationDate")
+    public Date creationDate;
+
 
     public String toString(){
         return description + "\n" + "Assigned to: " + assignee + " Status: " + status;
