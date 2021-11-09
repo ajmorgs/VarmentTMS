@@ -24,6 +24,11 @@ public class TicketSQLDAO implements ITicketDao {
     @Autowired
     TicketRepository ticketRepository;
 
+    /**
+     * Takes a ticket as a parameter to be saved
+     * @param ticket a ticket object to be saved
+     * @return return the saved ticket
+     */
     @Override
     public Ticket save(Ticket ticket) {
         Ticket createdTicket = ticketRepository.save(ticket);
