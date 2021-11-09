@@ -7,6 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+/*
+TicketSQLDAO provides implementation of ITicketDao interface
+methods
+
+@Author Anthony Morgan
+@version 1.0
+* */
 
 @Repository("TicketDAO")
 @Profile({"dev", "default"})
@@ -29,5 +38,12 @@ public class TicketSQLDAO implements ITicketDao {
             allTickets.add(ticket);
         }
         return allTickets;
+    }
+
+    @Override
+    public Optional<Ticket> fetchTicketById(String id) {
+        Optional<Ticket> ticketToReturn = ticketRepository.findById(Integer.valueOf(id));
+        return ticketToReturn;
+
     }
 }
