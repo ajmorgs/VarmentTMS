@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Varment Ticket Management System</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <title>Varment Ticket Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </head>
-  <body>
 
-  <div th:replace="fragments/topnav :: navbar">
-  </div>
-  <div class="container">
-  <p class="h1 text-center">List of tickets</p>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-          <p class="h4">Description</p>
-        </div>
-        <div class="col">
-          <p class="h4">Assignee</p>
-        </div>
-        <div class="col">
-          <p class="h4">Status</p>
-        </div>
-      </div>
-      <div class="list-group" th:each="ticket : ${tickets}">
-      <a href="#" class="list-group-item list-group-item-action">
-      <div class="row">
+<body>
 
-            <div class="col">
-              <p class="h5"th:text="${ticket.description}"/>
-            </div>
-            <div class="col">
-              <p class="h5"th:text="${ticket.assignee}"/>
-            </div>
-        <div class="col">
-          <p class="h5"th:text="${ticket.status}"/>
-        </div>
-
-      </div>
-      </a>
+    <div th:replace="fragments/topnav :: navbar">
     </div>
-  </div>
+    <div class="container">
+        <p class="h1 text-center">List of tickets</p>
+    </div>
+    <div class="container">
 
-  </body>
+        <div class="row">
+            <div class="col">
+                <p class="h4">Description</p>
+            </div>
+            <div class="col">
+                <p class="h4">Assignee</p>
+            </div>
+            <div class="col">
+                <p class="h4">Status</p>
+            </div>
+
+        </div>
+        <div class="list-group" th:each="ticket : ${tickets}">
+
+            <a href="#" class="list-group-item list-group-item-action">
+
+                <div class="row">
+                    <div class="col">
+                        <p class="h5" th:text="${ticket.description}" />
+                    </div>
+                    <div class="col">
+                        <p class="h5" th:text="${ticket.assignee}" />
+                    </div>
+                    <div class="col">
+                        <p class="h5" th:text="${ticket.status}" />
+                    </div>
+
+                </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+
 </html>
