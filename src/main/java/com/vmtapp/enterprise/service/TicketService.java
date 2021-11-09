@@ -1,18 +1,28 @@
 package com.vmtapp.enterprise.service;
 
+import com.vmtapp.enterprise.dao.IPhotoDAO;
 import com.vmtapp.enterprise.dao.ITicketDao;
+import com.vmtapp.enterprise.dao.TicketSQLDAO;
+import com.vmtapp.enterprise.dto.Photo;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
 public class TicketService implements ITicketService{
+
+    @Autowired
+    TicketSQLDAO ticketSQLDAO;
+
+    @Autowired
+    private IPhotoDAO photoDAO;
 
     @Override
     public int checkUserRole(String email) {
@@ -87,12 +97,15 @@ public class TicketService implements ITicketService{
     }
 
     @Override
-    public List<Ticket> fetchAll()  {
-        return ticketDao.fetchAll();
+    public List<Ticket> fetchAll(){
+        return ticketSQLDAO.fetchAll();
     }
 
     @Override
-    public Optional<Ticket> fetchTicketById(String id) throws Exception {
-        return ticketDao.fetchTicketById(id);
+    public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+        photoDAO.save(photo);
+        photoDAO.saveImage(imageFile, photo);
     }
+
+
 }

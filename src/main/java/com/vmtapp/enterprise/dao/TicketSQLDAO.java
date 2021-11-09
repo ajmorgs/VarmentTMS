@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,12 @@ public class TicketSQLDAO implements ITicketDao {
 
     @Override
     public List<Ticket> fetchAll() {
-        return null;
+        List<Ticket> allTickets = new ArrayList<>();
+        Iterable<Ticket> tickets = ticketRepository.findAll();
+        for (Ticket ticket : tickets) {
+            allTickets.add(ticket);
+        }
+        return allTickets;
     }
 
     @Override
