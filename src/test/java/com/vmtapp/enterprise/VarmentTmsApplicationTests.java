@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
-
+import java.util.Optional;
 
 
 @SpringBootTest
@@ -60,7 +60,7 @@ class VarmentTmsApplicationTests {
     }
 
     @Test   //Test case 2.3
-    void fetchTicketsByEmail_returnsNull(){
+    void fetchTicketsByEmail_returnsNull() throws Exception {
 
         givenUserJaneIsATechnicianWithNoTickets();
         whenUserRequestsTicketsForJane();
@@ -70,7 +70,7 @@ class VarmentTmsApplicationTests {
     private void givenUserJaneIsATechnicianWithNoTickets() {
     }
 
-    private void whenUserRequestsTicketsForJane() {
+    private void whenUserRequestsTicketsForJane() throws Exception {
 
 
         // check if user is a technician
@@ -114,7 +114,7 @@ class VarmentTmsApplicationTests {
 
 
     @Test
-    void fetchTicketsForJaneSmith(){
+    void fetchTicketsForJaneSmith() throws Exception {
         givenTicketDataIsAvailable();
         whenSearchTicketsForJaneSmith();
         thenReturnListOfTicketForJaneSmith();
@@ -125,7 +125,7 @@ class VarmentTmsApplicationTests {
         assertEquals(3,ticketListSize);
     }
 
-    private void whenSearchTicketsForJaneSmith() {
+    private void whenSearchTicketsForJaneSmith() throws Exception {
        tickets = ticketService.fetchTicketsByAssignee("janesmith@company.com");
 
     }
@@ -157,4 +157,20 @@ class VarmentTmsApplicationTests {
     }
 
 
+ @Test
+    void getTicketById10() throws Exception {
+     givenTicketDataIsAvailable();
+        whenIdIs10();
+        thenReturnTicket();
+        
+ }
+
+    private void whenIdIs10() {
+        ticket.setId(10);
+    }
+
+    private void thenReturnTicket() throws Exception {
+        Optional<Ticket> ticketToReturn = ticketService.fetchTicketById("10");
+        assertEquals(ticket,ticketToReturn);
+    }
 }

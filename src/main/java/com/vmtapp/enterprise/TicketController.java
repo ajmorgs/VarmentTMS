@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import java.util.Optional;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -93,9 +95,9 @@ Handle request to root of application
     }
 
     @RequestMapping("/ticket/{id}")
-    public ResponseEntity fetchTicketById(@PathVariable("id") String id){
+    public Optional<Ticket> fetchTicketById(@PathVariable("id") String id) throws Exception {
 
-        return new ResponseEntity(HttpStatus.OK);
+        return ticketService.fetchTicketById(id);
     }
 
     @DeleteMapping("/ticket/{id}")

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Profile("test")
@@ -28,6 +29,11 @@ public class TicketDAOStub implements ITicketDao {
     @Override
     public List<Ticket> fetchAll() {
         return ticketDAO.fetchAll();
+    }
+
+    @Override
+    public Optional<Ticket> fetchTicketById(String id) {
+        return ticketDAO.fetchTicketById(id);
     }
 
 

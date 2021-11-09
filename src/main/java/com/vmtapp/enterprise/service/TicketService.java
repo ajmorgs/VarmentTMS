@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,15 +98,14 @@ public class TicketService implements ITicketService{
     }
 
     @Override
-    public List<Ticket> fetchAll(){
-        return ticketSQLDAO.fetchAll();
+
+    public List<Ticket> fetchAll()  {
+        return ticketDao.fetchAll();
     }
 
     @Override
-    public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
-        photoDAO.save(photo);
-        photoDAO.saveImage(imageFile, photo);
+    public Optional<Ticket> fetchTicketById(String id) throws Exception {
+        return ticketDao.fetchTicketById(id);
     }
-
 
 }
