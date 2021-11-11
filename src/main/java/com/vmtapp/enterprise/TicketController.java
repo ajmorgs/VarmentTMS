@@ -74,11 +74,12 @@ Handle request to root of application
     }
 
     @RequestMapping(value = "/ticketList")
-    public ModelAndView fetchAllTickets(Model model){
+    public ModelAndView fetchAllTickets(){
         ModelAndView modelAndView = new ModelAndView();
         try {
             List<Ticket> tickets = ticketService.fetchAll();
-            model.addAttribute("tickets", tickets);
+            modelAndView.addObject("tickets", tickets);
+
             modelAndView.setViewName("ticketList");
             return modelAndView;
         } catch (IOException e){
