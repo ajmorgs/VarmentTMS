@@ -36,5 +36,4 @@ public class TicketDAOStub implements ITicketDao {
         return ticketDAO.fetchTicketById(id);
     }
 
-
 }
