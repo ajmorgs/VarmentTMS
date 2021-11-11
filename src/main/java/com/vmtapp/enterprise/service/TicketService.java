@@ -108,4 +108,10 @@ public class TicketService implements ITicketService{
         return ticketDao.fetchTicketById(id);
     }
 
+    @Override
+    public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+        photoDAO.save(photo);
+        photoDAO.saveImage(imageFile, photo);
+    }
+
 }

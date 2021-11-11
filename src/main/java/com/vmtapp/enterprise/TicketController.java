@@ -82,7 +82,7 @@ Handle request to root of application
 
             modelAndView.setViewName("ticketList");
             return modelAndView;
-        } catch (IOException e){
+        } catch (Exception e){
             e.printStackTrace();
             modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
