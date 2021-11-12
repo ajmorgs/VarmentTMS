@@ -110,7 +110,7 @@ public class TicketService implements ITicketService{
 
     @Override
     public List<Ticket> fetchTicketByAssignee(String assignee) {
-        return null;
+        return ticketDao.fetchTicketByAssignee(assignee);
     }
 
     @Override

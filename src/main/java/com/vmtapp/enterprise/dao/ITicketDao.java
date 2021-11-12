@@ -12,4 +12,5 @@ public interface ITicketDao {
 
     Optional<Ticket> fetchTicketById(String id);
 
+    List<Ticket> fetchTicketByAssignee(String assignee);
 }

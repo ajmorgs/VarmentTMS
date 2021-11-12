@@ -36,4 +36,7 @@ public class TicketDAOStub implements ITicketDao {
         return ticketDAO.fetchTicketById(id);
     }
 
+    @Override
+    public List<Ticket> fetchTicketByAssignee(String assignee) {return ticketDAO.fetchTicketByAssignee(assignee);}
+
 }
