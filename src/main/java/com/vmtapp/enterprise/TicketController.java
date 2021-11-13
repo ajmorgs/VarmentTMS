@@ -2,6 +2,7 @@ package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.*;
 import com.vmtapp.enterprise.dto.Error;
+import com.vmtapp.enterprise.service.IPhotoService;
 import com.vmtapp.enterprise.service.ITicketService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class TicketController {
 
     @Autowired
     ITicketService ticketService;
+
+    @Autowired
+    IPhotoService photoService;
 /*
 Handle request to root of application
  */
@@ -96,7 +100,7 @@ Handle request to root of application
     }
 
     @GetMapping("/ticket/{id}")
-    public ModelAndView fetchTicketById(@PathVariable("id") String id) throws Exception {
+    public ModelAndView fetchTicketById(@PathVariable("id") int id) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
 
@@ -110,6 +114,16 @@ Handle request to root of application
             Ticket ticket = new Ticket();
             ticket = optionalTicket.get();
             modelAndView.addObject("ticket", ticket);
+
+            List<Photo> photos = photoService.fetchPhotoByTicketId(id);
+            Photo photo = new Photo();
+            if(!photos.isEmpty()){
+                photo = photos.get(0);
+            }else {
+                throw new Exception("trouble getting photo");
+            }
+
+            modelAndView.addObject("photo", photo);
             modelAndView.setViewName("ticketDetails");
 
             return modelAndView;

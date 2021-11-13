@@ -50,7 +50,10 @@
     </div>
 
     <div>
-
+        <p>
+            <span>Photo:</span>
+            <span th:text="${photo.fileName}"></span>
+        </p>
         <img th:src="@{${'/photos/' + photo.fileName}}" alt="Ticket photo"/>
 
 
