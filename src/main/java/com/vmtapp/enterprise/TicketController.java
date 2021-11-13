@@ -101,14 +101,21 @@ Handle request to root of application
 
 
         try{
-            Optional<Ticket> ticket = ticketService.fetchTicketById(id);
+            // This checks if the ticket exists, and if not, throws an exception
+            Optional<Ticket> optionalTicket = Optional.ofNullable(ticketService.fetchTicketById(id).orElseThrow(
+                    () -> new Exception("not found")
+            ));
+
+            // obviously this will only happen if ticket exists, so it's safe to convert optionalTicket to a Ticket object now
+            Ticket ticket = new Ticket();
+            ticket = optionalTicket.get();
             modelAndView.addObject("ticket", ticket);
             modelAndView.setViewName("ticketDetails");
 
             return modelAndView;
         }catch (Exception e){
             e.printStackTrace();
-            modelAndView = createErrorModelAndView("There was a retrieving the ticket",
+            modelAndView = createErrorModelAndView("There was an error retrieving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
         }
