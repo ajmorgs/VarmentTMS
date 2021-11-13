@@ -104,7 +104,7 @@ public class TicketService implements ITicketService{
     }
 
     @Override
-    public Optional<Ticket> fetchTicketById(String id) throws Exception {
+    public Optional<Ticket> fetchTicketById(int id) throws Exception {
         return ticketDao.fetchTicketById(id);
     }
 

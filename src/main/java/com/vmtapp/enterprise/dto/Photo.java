@@ -17,6 +17,6 @@ class Photo {
 
 
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="ticketId")
     private Ticket ticket;
 }

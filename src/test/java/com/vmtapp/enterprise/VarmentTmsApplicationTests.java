@@ -170,7 +170,7 @@ class VarmentTmsApplicationTests {
     }
 
     private void thenReturnTicket() throws Exception {
-        Optional<Ticket> ticketToReturn = ticketService.fetchTicketById("10");
+        Optional<Ticket> ticketToReturn = ticketService.fetchTicketById(10);
         assertEquals(ticket,ticketToReturn);
     }
 }
