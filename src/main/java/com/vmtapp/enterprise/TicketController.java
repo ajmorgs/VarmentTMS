@@ -95,10 +95,24 @@ Handle request to root of application
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/ticket/{id}")
-    public Optional<Ticket> fetchTicketById(@PathVariable("id") String id) throws Exception {
+    @GetMapping("/ticket/{id}")
+    public ModelAndView fetchTicketById(@PathVariable("id") String id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
 
-        return ticketService.fetchTicketById(id);
+
+        try{
+            Optional<Ticket> ticket = ticketService.fetchTicketById(id);
+            modelAndView.addObject("ticket", ticket);
+            modelAndView.setViewName("ticketDetails");
+
+            return modelAndView;
+        }catch (Exception e){
+            e.printStackTrace();
+            modelAndView = createErrorModelAndView("There was a retrieving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+
     }
 
     @DeleteMapping("/ticket/{id}")
