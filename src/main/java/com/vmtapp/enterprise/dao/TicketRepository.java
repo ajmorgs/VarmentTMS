@@ -4,6 +4,8 @@ import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /*
 TicketRepository extends CrudRepository interface for
 methods to access persistent data store
@@ -16,4 +18,5 @@ methods to access persistent data store
 public interface TicketRepository extends CrudRepository<Ticket, Integer> {
 
 
+    List<Ticket> findByAsignee(String assignee);
 }
