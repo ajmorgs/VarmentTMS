@@ -58,22 +58,23 @@ Handle request to root of application
 
         Photo photo = new Photo();
 
+        if(!imageFile.isEmpty()){
         try{
 
             photo.setFileName(imageFile.getOriginalFilename());
             photo.setTicket(ticket);
             ticketService.saveImage(imageFile, photo);
-            modelAndView.setViewName("start");
         }catch (IOException e){
             Logger log = Logger.getLogger("ticket");
             log.info(e.toString());
 
-            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+            modelAndView = createErrorModelAndView("There was a problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
 
         }
-
+        }
+        modelAndView.setViewName("start");
         return modelAndView;
     }
 
@@ -119,8 +120,6 @@ Handle request to root of application
             Photo photo = new Photo();
             if(!photos.isEmpty()){
                 photo = photos.get(0);
-            }else {
-                throw new Exception("trouble getting photo");
             }
 
             modelAndView.addObject("photo", photo);
