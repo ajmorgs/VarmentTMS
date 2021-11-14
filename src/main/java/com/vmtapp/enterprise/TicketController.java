@@ -15,10 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class TicketController {
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     ITicketService ticketService;
@@ -44,8 +47,8 @@ Handle request to root of application
         try{
             ticketService.save(ticket);
         }catch(Exception e){
-            Logger log = Logger.getLogger("ticket");
-            log.info(e.toString());
+
+            log.error(e.toString());
             modelAndView.setViewName("error");
             return modelAndView;
         }
@@ -59,8 +62,8 @@ Handle request to root of application
             ticketService.saveImage(imageFile, photo);
             modelAndView.setViewName("start");
         }catch (IOException e){
-            Logger log = Logger.getLogger("ticket");
-            log.info(e.toString());
+
+            log.error(e.toString());
 
             modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
@@ -80,7 +83,7 @@ Handle request to root of application
             modelAndView.setViewName("ticketList");
             return modelAndView;
         } catch (IOException e){
-            e.printStackTrace();
+            log.error(e.toString());
             modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
@@ -111,7 +114,7 @@ Handle request to root of application
         try {
             newTicket= ticketService.save(ticket);
         } catch (Exception e) {
-
+            log.error(e.toString());
         }
 
         return newTicket;
