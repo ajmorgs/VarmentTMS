@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 @Entity
 public @Data
 class Ticket {
@@ -26,6 +28,8 @@ class Ticket {
     public String assignee;
     @SerializedName("description")
     public String description;
+    @SerializedName("creationDate")
+    public Date creationDate;
 
     public String toString(){
         return description + "\n" + "Assigned to: " + assignee + " Status: " + status;
