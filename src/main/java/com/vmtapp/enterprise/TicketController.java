@@ -119,8 +119,6 @@ Handle request to root of application
             Photo photo = new Photo();
             if(!photos.isEmpty()){
                 photo = photos.get(0);
-            }else {
-                throw new Exception("trouble getting photo");
             }
 
             modelAndView.addObject("photo", photo);
