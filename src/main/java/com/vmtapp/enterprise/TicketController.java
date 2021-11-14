@@ -2,6 +2,7 @@ package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.*;
 import com.vmtapp.enterprise.dto.Error;
+import com.vmtapp.enterprise.service.IPhotoService;
 import com.vmtapp.enterprise.service.ITicketService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class TicketController {
 
     @Autowired
     ITicketService ticketService;
+
+    @Autowired
+    IPhotoService photoService;
 /*
 Handle request to root of application
  */
@@ -82,7 +86,7 @@ Handle request to root of application
 
             modelAndView.setViewName("ticketList");
             return modelAndView;
-        } catch (IOException e){
+        } catch (Exception e){
             e.printStackTrace();
             modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
@@ -95,10 +99,41 @@ Handle request to root of application
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/ticket/{id}")
-    public Optional<Ticket> fetchTicketById(@PathVariable("id") String id) throws Exception {
+    @GetMapping("/ticket/{id}")
+    public ModelAndView fetchTicketById(@PathVariable("id") int id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
 
-        return ticketService.fetchTicketById(id);
+
+        try{
+            // This checks if the ticket exists, and if not, throws an exception
+            Optional<Ticket> optionalTicket = Optional.ofNullable(ticketService.fetchTicketById(id).orElseThrow(
+                    () -> new Exception("not found")
+            ));
+
+            // obviously this will only happen if ticket exists, so it's safe to convert optionalTicket to a Ticket object now
+            Ticket ticket = new Ticket();
+            ticket = optionalTicket.get();
+            modelAndView.addObject("ticket", ticket);
+
+            List<Photo> photos = photoService.fetchPhotoByTicketId(id);
+            Photo photo = new Photo();
+            if(!photos.isEmpty()){
+                photo = photos.get(0);
+            }else {
+                throw new Exception("trouble getting photo");
+            }
+
+            modelAndView.addObject("photo", photo);
+            modelAndView.setViewName("ticketDetails");
+
+            return modelAndView;
+        }catch (Exception e){
+            e.printStackTrace();
+            modelAndView = createErrorModelAndView("There was an error retrieving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+
     }
 
     @DeleteMapping("/ticket/{id}")
