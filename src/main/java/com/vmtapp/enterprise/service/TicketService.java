@@ -113,5 +113,9 @@ public class TicketService implements ITicketService{
         return Optional.empty();
     }
 
+    @Override
+    public List<Ticket> fetchTicketsByDescription(String searchString){
+        return ticketSQLDAO.fetchTicketsByDescription(searchString);
+    }
 
 }

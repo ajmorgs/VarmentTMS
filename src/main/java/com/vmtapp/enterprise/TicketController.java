@@ -31,12 +31,12 @@ Handle request to root of application
     @RequestMapping("/")
     public String index(Model model){
         Ticket ticket = new Ticket();
-        ticket.setEmail("larry@test.com");
-        ticket.setAssignee("morganaj@uc.edu");
-        ticket.setStatus("unassigned");
-        ticket.setFirstName("Larry");
-        ticket.setLastName("Fine");
-        model.addAttribute(ticket);
+     //   ticket.setEmail("larry@test.com");
+    //    ticket.setAssignee("morganaj@uc.edu");
+     //   ticket.setStatus("unassigned");
+    //    ticket.setFirstName("Larry");
+    //    ticket.setLastName("Fine");
+       model.addAttribute(ticket);
         return "start";
     }
 
@@ -74,6 +74,22 @@ Handle request to root of application
         return modelAndView;
     }
 
+    @RequestMapping(value = "/ticketsByDescription")
+    public ModelAndView fetchTicketsByDescription(Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            List<Ticket> tickets = ticketService.fetchTicketsByDescription();
+            model.addAttribute("tickets", tickets);
+            modelAndView.setViewName("ticketList");
+            return modelAndView;
+        } catch (IOException e){
+            log.error(e.toString());
+            modelAndView = createErrorModelAndView("There was aa problem fetching the tickets",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+    }
+
     @RequestMapping(value = "/ticketList")
     public ModelAndView fetchAllTickets(Model model){
         ModelAndView modelAndView = new ModelAndView();
@@ -84,7 +100,7 @@ Handle request to root of application
             return modelAndView;
         } catch (IOException e){
             log.error(e.toString());
-            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+            modelAndView = createErrorModelAndView("There was aa problem fetching the tickets",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
         }

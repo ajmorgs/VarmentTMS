@@ -173,4 +173,20 @@ class VarmentTmsApplicationTests {
         Optional<Ticket> ticketToReturn = ticketService.fetchTicketById("10");
         assertEquals(ticket,ticketToReturn);
     }
+
+    @Test void getAllTicketsWhereDescriptionIncludesCannotAccessEmail() throws Exception{
+        givenTicketDataIsAvailable();
+        whenDescriptionIsCannotAccessEmail();
+        thenReturnTickets();
+    }
+
+    private void whenDescriptionIsCannotAccessEmail() {
+        assertEquals(ticket.description,"Cannot Access Email");
+    }
+
+
+
+    private void thenReturnTickets() {
+
+    }
 }

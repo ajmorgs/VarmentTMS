@@ -46,4 +46,16 @@ public class TicketSQLDAO implements ITicketDao {
         return ticketToReturn;
 
     }
+
+    @Override
+    public List<Ticket> fetchTicketsByDescription(String searchString) {
+        List<Ticket> allTickets = new ArrayList<>();
+        Iterable<Ticket> tickets = ticketRepository.findAll();
+        for (Ticket ticket : tickets) {
+            if(ticket.description.indexOf(searchString) > -1){
+                allTickets.add(ticket);
+            }
+        }
+        return allTickets;
+    }
 }
