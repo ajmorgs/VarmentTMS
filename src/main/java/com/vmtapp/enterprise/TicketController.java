@@ -18,10 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class TicketController {
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     ITicketService ticketService;
@@ -34,12 +37,12 @@ Handle request to root of application
     @RequestMapping("/")
     public String index(Model model){
         Ticket ticket = new Ticket();
-        ticket.setEmail("larry@test.com");
-        ticket.setAssignee("morganaj@uc.edu");
-        ticket.setStatus("unassigned");
-        ticket.setFirstName("Larry");
-        ticket.setLastName("Fine");
-        model.addAttribute(ticket);
+     //   ticket.setEmail("larry@test.com");
+    //    ticket.setAssignee("morganaj@uc.edu");
+     //   ticket.setStatus("unassigned");
+    //    ticket.setFirstName("Larry");
+    //    ticket.setLastName("Fine");
+       model.addAttribute(ticket);
         return "start";
     }
 
@@ -50,8 +53,8 @@ Handle request to root of application
         try{
             ticketService.save(ticket);
         }catch(Exception e){
-            Logger log = Logger.getLogger("ticket");
-            log.info(e.toString());
+
+            log.error(e.toString());
             modelAndView.setViewName("error");
             return modelAndView;
         }
@@ -65,8 +68,8 @@ Handle request to root of application
             photo.setTicket(ticket);
             ticketService.saveImage(imageFile, photo);
         }catch (IOException e){
-            Logger log = Logger.getLogger("ticket");
-            log.info(e.toString());
+
+            log.error(e.toString());
 
             modelAndView = createErrorModelAndView("There was a problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
@@ -78,6 +81,22 @@ Handle request to root of application
         return modelAndView;
     }
 
+    @RequestMapping(value = "/ticketsByDescription")
+    public ModelAndView fetchTicketsByDescription(Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            List<Ticket> tickets = ticketService.fetchTicketsByDescription();
+            model.addAttribute("tickets", tickets);
+            modelAndView.setViewName("ticketList");
+            return modelAndView;
+        } catch (IOException e){
+            log.error(e.toString());
+            modelAndView = createErrorModelAndView("There was aa problem fetching the tickets",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+    }
+
     @RequestMapping(value = "/ticketList")
     public ModelAndView fetchAllTickets(){
         ModelAndView modelAndView = new ModelAndView();
@@ -87,9 +106,11 @@ Handle request to root of application
 
             modelAndView.setViewName("ticketList");
             return modelAndView;
-        } catch (Exception e){
-            e.printStackTrace();
-            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+
+        } catch (IOException e){
+            log.error(e.toString());
+            modelAndView = createErrorModelAndView("There was aa problem fetching the tickets",
+
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
         }
@@ -148,7 +169,7 @@ Handle request to root of application
         try {
             newTicket= ticketService.save(ticket);
         } catch (Exception e) {
-
+            log.error(e.toString());
         }
 
         return newTicket;

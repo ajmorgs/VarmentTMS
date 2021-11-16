@@ -10,5 +10,9 @@ public interface ITicketDao {
 
     List<Ticket> fetchAll();
 
-    Optional<Ticket> fetchTicketById(int id);
+
+    Optional<Ticket> fetchTicketById(String id);
+
+    List<Ticket> fetchTicketsByDescription(String searchString);
+
 }

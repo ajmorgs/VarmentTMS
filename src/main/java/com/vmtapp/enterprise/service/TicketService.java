@@ -114,6 +114,16 @@ public class TicketService implements ITicketService{
         photoDAO.save(photo);
         photoDAO.saveImage(imageFile, photo);
 
+
+    @Override
+    public Optional<Ticket> fetchTicketById(String s) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Ticket> fetchTicketsByDescription(String searchString){
+        return ticketSQLDAO.fetchTicketsByDescription(searchString);
+
     }
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 @Entity
 public @Data
 class Ticket {
