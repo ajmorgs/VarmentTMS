@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PhotoDAO implements IPhotoDAO {
@@ -31,5 +33,12 @@ public class PhotoDAO implements IPhotoDAO {
         Path path = Paths.get(photo.getPath() + imageFile.getOriginalFilename());
         Files.write(path, bytes);
 
+    }
+
+    @Override
+    public List<Photo> fetchPhotoByTicketId(int id) {
+        List<Photo> photos = photoRepository.findByTicketId(id);
+
+        return photos;
     }
 }

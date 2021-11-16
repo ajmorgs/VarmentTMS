@@ -24,22 +24,27 @@ public interface ITicketService {
      * @param email email
      * @return List<Ticket> list of tickets that belong to user
      */
-    List<Ticket> fetchByEmail(String email);
+    List<Ticket> fetchByEmail(String email) throws Exception;
   
       /**
     * fetch list of Tickets with given assignee
      * @param assignee
      * @return ArrayList<Ticket>
     * */
-    ArrayList<Ticket> fetchTicketsByAssignee(String assignee);
+    ArrayList<Ticket> fetchTicketsByAssignee(String assignee) throws Exception;
 
     Ticket save(Ticket ticket);
 
-    List<Ticket> fetchAll() throws IOException;
+
+    List<Ticket> fetchAll();
+
+    Optional<Ticket> fetchTicketById(int id) throws Exception;
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
+
 
     Optional<Ticket> fetchTicketById(String s);
 
     List<Ticket> fetchTicketsByDescription(String searchString) throws IOException;
+
 }

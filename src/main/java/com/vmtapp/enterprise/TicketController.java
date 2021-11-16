@@ -2,6 +2,7 @@ package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.*;
 import com.vmtapp.enterprise.dto.Error;
+import com.vmtapp.enterprise.service.IPhotoService;
 import com.vmtapp.enterprise.service.ITicketService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import java.util.Optional;
 import java.io.IOException;
 import java.util.List;
 import org.slf4j.Logger;
@@ -25,6 +28,9 @@ public class TicketController {
 
     @Autowired
     ITicketService ticketService;
+
+    @Autowired
+    IPhotoService photoService;
 /*
 Handle request to root of application
  */
@@ -55,22 +61,23 @@ Handle request to root of application
 
         Photo photo = new Photo();
 
+        if(!imageFile.isEmpty()){
         try{
 
             photo.setFileName(imageFile.getOriginalFilename());
             photo.setTicket(ticket);
             ticketService.saveImage(imageFile, photo);
-            modelAndView.setViewName("start");
         }catch (IOException e){
 
             log.error(e.toString());
 
-            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+            modelAndView = createErrorModelAndView("There was a problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
 
         }
-
+        }
+        modelAndView.setViewName("start");
         return modelAndView;
     }
 
@@ -91,16 +98,19 @@ Handle request to root of application
     }
 
     @RequestMapping(value = "/ticketList")
-    public ModelAndView fetchAllTickets(Model model){
+    public ModelAndView fetchAllTickets(){
         ModelAndView modelAndView = new ModelAndView();
         try {
             List<Ticket> tickets = ticketService.fetchAll();
-            model.addAttribute("tickets", tickets);
+            modelAndView.addObject("tickets", tickets);
+
             modelAndView.setViewName("ticketList");
             return modelAndView;
+
         } catch (IOException e){
             log.error(e.toString());
             modelAndView = createErrorModelAndView("There was aa problem fetching the tickets",
+
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
         }
@@ -111,10 +121,39 @@ Handle request to root of application
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/ticket/{id}")
-    public ResponseEntity fetchTicketById(@PathVariable("id") String id){
+    @GetMapping("/ticket/{id}")
+    public ModelAndView fetchTicketById(@PathVariable("id") int id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
 
-        return new ResponseEntity(HttpStatus.OK);
+
+        try{
+            // This checks if the ticket exists, and if not, throws an exception
+            Optional<Ticket> optionalTicket = Optional.ofNullable(ticketService.fetchTicketById(id).orElseThrow(
+                    () -> new Exception("not found")
+            ));
+
+            // obviously this will only happen if ticket exists, so it's safe to convert optionalTicket to a Ticket object now
+            Ticket ticket = new Ticket();
+            ticket = optionalTicket.get();
+            modelAndView.addObject("ticket", ticket);
+
+            List<Photo> photos = photoService.fetchPhotoByTicketId(id);
+            Photo photo = new Photo();
+            if(!photos.isEmpty()){
+                photo = photos.get(0);
+            }
+
+            modelAndView.addObject("photo", photo);
+            modelAndView.setViewName("ticketDetails");
+
+            return modelAndView;
+        }catch (Exception e){
+            e.printStackTrace();
+            modelAndView = createErrorModelAndView("There was an error retrieving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+
     }
 
     @DeleteMapping("/ticket/{id}")
