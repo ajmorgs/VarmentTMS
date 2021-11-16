@@ -2,6 +2,7 @@ package com.vmtapp.enterprise;
 
 import com.vmtapp.enterprise.dto.*;
 import com.vmtapp.enterprise.dto.Error;
+import com.vmtapp.enterprise.service.IPhotoService;
 import com.vmtapp.enterprise.service.ITicketService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +18,31 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class TicketController {
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     ITicketService ticketService;
+
+    @Autowired
+    IPhotoService photoService;
 /*
 Handle request to root of application
  */
     @RequestMapping("/")
     public String index(Model model){
         Ticket ticket = new Ticket();
-        ticket.setEmail("larry@test.com");
-        ticket.setAssignee("morganaj@uc.edu");
-        ticket.setStatus("unassigned");
-        ticket.setFirstName("Larry");
-        ticket.setLastName("Fine");
-        model.addAttribute(ticket);
+     //   ticket.setEmail("larry@test.com");
+    //    ticket.setAssignee("morganaj@uc.edu");
+     //   ticket.setStatus("unassigned");
+    //    ticket.setFirstName("Larry");
+    //    ticket.setLastName("Fine");
+       model.addAttribute(ticket);
         return "start";
     }
 
@@ -46,31 +53,48 @@ Handle request to root of application
         try{
             ticketService.save(ticket);
         }catch(Exception e){
-            Logger log = Logger.getLogger("ticket");
-            log.info(e.toString());
+
+            log.error(e.toString());
             modelAndView.setViewName("error");
             return modelAndView;
         }
 
         Photo photo = new Photo();
 
+        if(!imageFile.isEmpty()){
         try{
 
             photo.setFileName(imageFile.getOriginalFilename());
             photo.setTicket(ticket);
             ticketService.saveImage(imageFile, photo);
-            modelAndView.setViewName("start");
         }catch (IOException e){
-            Logger log = Logger.getLogger("ticket");
-            log.info(e.toString());
 
-            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+            log.error(e.toString());
+
+            modelAndView = createErrorModelAndView("There was a problem saving the ticket",
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
 
         }
-
+        }
+        modelAndView.setViewName("start");
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/ticketsByDescription")
+    public ModelAndView fetchTicketsByDescription(Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            List<Ticket> tickets = ticketService.fetchTicketsByDescription();
+            model.addAttribute("tickets", tickets);
+            modelAndView.setViewName("ticketList");
+            return modelAndView;
+        } catch (IOException e){
+            log.error(e.toString());
+            modelAndView = createErrorModelAndView("There was aa problem fetching the tickets",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
     }
 
     @RequestMapping(value = "/ticketList")
@@ -82,9 +106,11 @@ Handle request to root of application
 
             modelAndView.setViewName("ticketList");
             return modelAndView;
-        } catch (Exception e){
-            e.printStackTrace();
-            modelAndView = createErrorModelAndView("There was aa problem saving the ticket",
+
+        } catch (IOException e){
+            log.error(e.toString());
+            modelAndView = createErrorModelAndView("There was aa problem fetching the tickets",
+
                     "Please confirm that the details were correct and try again. If error persists, contact an admin");
             return modelAndView;
         }
@@ -95,10 +121,39 @@ Handle request to root of application
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/ticket/{id}")
-    public Optional<Ticket> fetchTicketById(@PathVariable("id") String id) throws Exception {
+    @GetMapping("/ticket/{id}")
+    public ModelAndView fetchTicketById(@PathVariable("id") int id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
 
-        return ticketService.fetchTicketById(id);
+
+        try{
+            // This checks if the ticket exists, and if not, throws an exception
+            Optional<Ticket> optionalTicket = Optional.ofNullable(ticketService.fetchTicketById(id).orElseThrow(
+                    () -> new Exception("not found")
+            ));
+
+            // obviously this will only happen if ticket exists, so it's safe to convert optionalTicket to a Ticket object now
+            Ticket ticket = new Ticket();
+            ticket = optionalTicket.get();
+            modelAndView.addObject("ticket", ticket);
+
+            List<Photo> photos = photoService.fetchPhotoByTicketId(id);
+            Photo photo = new Photo();
+            if(!photos.isEmpty()){
+                photo = photos.get(0);
+            }
+
+            modelAndView.addObject("photo", photo);
+            modelAndView.setViewName("ticketDetails");
+
+            return modelAndView;
+        }catch (Exception e){
+            e.printStackTrace();
+            modelAndView = createErrorModelAndView("There was an error retrieving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+
     }
 
     @DeleteMapping("/ticket/{id}")
@@ -114,7 +169,7 @@ Handle request to root of application
         try {
             newTicket= ticketService.save(ticket);
         } catch (Exception e) {
-
+            log.error(e.toString());
         }
 
         return newTicket;

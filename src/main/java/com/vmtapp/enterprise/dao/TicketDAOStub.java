@@ -32,11 +32,27 @@ public class TicketDAOStub implements ITicketDao {
     }
 
     @Override
+
     public Optional<Ticket> fetchTicketById(String id) {
         return ticketDAO.fetchTicketById(id);
     }
 
     @Override
     public List<Ticket> fetchTicketByAssignee(String assignee) {return ticketDAO.fetchTicketByAssignee(assignee);}
+
+    @Override
+    public List<Ticket> fetchTicketsByDescription(String searchString) {
+        List<Ticket> allTickets = new ArrayList<>();
+        Iterable<Ticket> tickets = ticketDAO.fetchAll();
+        for (Ticket ticket : tickets) {
+            if(ticket.description.indexOf(searchString) > -1){
+                allTickets.add(ticket);
+            }
+        }
+        return allTickets;
+    }
+
+
+
 
 }

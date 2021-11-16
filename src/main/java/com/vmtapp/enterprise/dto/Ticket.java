@@ -9,11 +9,14 @@ import javax.persistence.Id;
 import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 @Entity
 public @Data
 class Ticket {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @SerializedName("id")
     public int id;
     @SerializedName("firstName")
     public String firstName;
@@ -32,6 +35,6 @@ class Ticket {
 
 
     public String toString(){
-        return description + "\n" + "Assigned to: " + assignee + " Status: " + status;
+        return "id: " + id + "description: " + description + "\n" + "Assigned to: " + assignee + " Status: " + status;
     }
 }

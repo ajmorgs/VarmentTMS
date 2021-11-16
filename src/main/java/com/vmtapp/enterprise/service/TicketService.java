@@ -100,11 +100,11 @@ public class TicketService implements ITicketService{
     @Override
 
     public List<Ticket> fetchAll()  {
-        return ticketDao.fetchAll();
+        return ticketSQLDAO.fetchAll();
     }
 
     @Override
-    public Optional<Ticket> fetchTicketById(String id) throws Exception {
+    public Optional<Ticket> fetchTicketById(int id) throws Exception {
         return ticketDao.fetchTicketById(id);
     }
 
@@ -115,8 +115,20 @@ public class TicketService implements ITicketService{
 
     @Override
     public void saveImage(MultipartFile imageFile, Photo photo) throws IOException {
+
         photoDAO.save(photo);
         photoDAO.saveImage(imageFile, photo);
+
+
+    @Override
+    public Optional<Ticket> fetchTicketById(String s) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Ticket> fetchTicketsByDescription(String searchString){
+        return ticketSQLDAO.fetchTicketsByDescription(searchString);
+
     }
 
 }
