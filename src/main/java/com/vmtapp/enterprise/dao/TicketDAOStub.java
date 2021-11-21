@@ -38,6 +38,9 @@ public class TicketDAOStub implements ITicketDao {
     }
 
     @Override
+    public List<Ticket> fetchTicketByAssignee(String assignee) {return ticketDAO.fetchTicketByAssignee(assignee);}
+
+    @Override
     public List<Ticket> fetchTicketsByDescription(String searchString) {
         List<Ticket> allTickets = new ArrayList<>();
         Iterable<Ticket> tickets = ticketDAO.fetchAll();
@@ -48,6 +51,7 @@ public class TicketDAOStub implements ITicketDao {
         }
         return allTickets;
     }
+
 
 
 

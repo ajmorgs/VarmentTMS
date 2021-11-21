@@ -93,8 +93,8 @@ class VarmentTmsApplicationTests {
     void testRegExOfEmail(){
         
         givenUserHasSubmittedATicket();
-        thenAskUserToCheckEmail();
         whenUserSubmitsInvalidEmailField();
+        thenAskUserToCheckEmail();
 
     }
 
