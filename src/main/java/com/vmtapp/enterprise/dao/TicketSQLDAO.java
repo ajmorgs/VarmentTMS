@@ -40,9 +40,9 @@ public class TicketSQLDAO implements ITicketDao {
         return allTickets;
     }
 
-    @Override
 
-    public Optional<Ticket> fetchTicketById(String id) {
+    @Override
+    public Optional<Ticket> fetchTicketById(int id) {
         Optional<Ticket> ticketToReturn = ticketRepository.findById(Integer.valueOf(id));
         return ticketToReturn;
 

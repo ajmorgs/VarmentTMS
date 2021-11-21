@@ -36,7 +36,7 @@ public interface ITicketService {
     Ticket save(Ticket ticket);
 
 
-    List<Ticket> fetchAll();
+    List<Ticket> fetchAllTickets() throws IOException;
 
 
     Optional<Ticket> fetchTicketById(String id) throws Exception;
@@ -45,11 +45,7 @@ public interface ITicketService {
 
     Optional<Ticket> fetchTicketById(int id) throws Exception;
 
-
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
-
-
-    Optional<Ticket> fetchTicketById(String s);
 
     List<Ticket> fetchTicketsByDescription(String searchString) throws IOException;
 

@@ -32,8 +32,7 @@ public class TicketDAOStub implements ITicketDao {
     }
 
     @Override
-
-    public Optional<Ticket> fetchTicketById(String id) {
+    public Optional<Ticket> fetchTicketById(int id) {
         return ticketDAO.fetchTicketById(id);
     }
 

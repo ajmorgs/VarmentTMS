@@ -101,7 +101,7 @@ Handle request to root of application
     public ModelAndView fetchAllTickets(){
         ModelAndView modelAndView = new ModelAndView();
         try {
-            List<Ticket> tickets = ticketService.fetchAll();
+            List<Ticket> tickets = ticketService.fetchAllTickets();
             modelAndView.addObject("tickets", tickets);
 
             modelAndView.setViewName("ticketList");
