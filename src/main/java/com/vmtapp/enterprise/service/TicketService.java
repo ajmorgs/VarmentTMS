@@ -63,18 +63,6 @@ public class TicketService implements ITicketService{
         ArrayList<Ticket> ticketsToReturn = new ArrayList<Ticket>();
 
         Ticket ticket = new Ticket();
-        ticket.setFirstName("Larry");
-        ticket.setLastName("Fine");
-        ticket.setEmail("larry@test.com");
-        ticketsToReturn.add(ticket);
-        ticket.setFirstName("Moe");
-        ticket.setLastName("Howard");
-        ticket.setEmail("moe@test.com");
-        ticketsToReturn.add(ticket);
-        ticket.setFirstName("Shemp");
-        ticket.setLastName("Howard");
-        ticket.setEmail("shemp@test.com");
-        ticketsToReturn.add(ticket);
 
         return ticketsToReturn;
         
@@ -118,11 +106,6 @@ public class TicketService implements ITicketService{
 
         photoDAO.save(photo);
         photoDAO.saveImage(imageFile, photo);
-
-
-    @Override
-    public Optional<Ticket> fetchTicketById(String s) {
-        return Optional.empty();
     }
 
     @Override

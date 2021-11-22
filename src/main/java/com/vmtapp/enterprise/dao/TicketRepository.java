@@ -18,5 +18,5 @@ methods to access persistent data store
 public interface TicketRepository extends CrudRepository<Ticket, Integer> {
 
 
-    List<Ticket> findByAsignee(String assignee);
+    List<Ticket> findByAssignee(String assignee);
 }
