@@ -36,7 +36,7 @@ public interface ITicketService {
     Ticket save(Ticket ticket);
 
 
-    List<Ticket> fetchAll();
+    List<Ticket> fetchAllTickets() throws IOException;
 
     Optional<Ticket> fetchTicketById(int id) throws Exception;
 
