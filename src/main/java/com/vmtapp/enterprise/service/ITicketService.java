@@ -38,12 +38,10 @@ public interface ITicketService {
 
     List<Ticket> fetchAllTickets() throws IOException;
 
+    Optional<Ticket> fetchTicketById(int id) throws Exception;
 
-    Optional<Ticket> fetchTicketById(String id) throws Exception;
 
     List<Ticket> fetchTicketByAssignee(String assignee);
-
-    Optional<Ticket> fetchTicketById(int id) throws Exception;
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
 
