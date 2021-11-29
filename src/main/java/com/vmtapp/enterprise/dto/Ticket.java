@@ -28,6 +28,8 @@ class Ticket {
     public String status;
     @SerializedName("assignee")
     public String assignee;
+    @SerializedName("title")
+    public String title;
     @SerializedName("description")
     public String description;
     @SerializedName("creationDate")
