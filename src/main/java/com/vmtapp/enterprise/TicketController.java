@@ -48,6 +48,7 @@ Handle request to root of application
 
         ModelAndView modelAndView = new ModelAndView();
         try{
+            ticket.setStatus("In Progress");
             ticketService.save(ticket);
         }catch(Exception e){
 
@@ -171,6 +172,40 @@ Handle request to root of application
 
 
 
+
+    @PostMapping("/solveTicket/{id}")
+    public ModelAndView solveTicket(@PathVariable("id") int id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+
+        try{
+            // This checks if the ticket exists, and if not, throws an exception
+            Optional<Ticket> optionalTicket = Optional.ofNullable(ticketService.fetchTicketById(id).orElseThrow(
+                    () -> new Exception("not found")
+            ));
+
+            // obviously this will only happen if ticket exists, so it's safe to convert optionalTicket to a Ticket object now
+            Ticket ticket = new Ticket();
+            ticket = optionalTicket.get();
+
+            ticket.setStatus("Solved");
+            ticketService.save(ticket);
+
+            modelAndView = fetchAllTickets();
+
+            return modelAndView;
+        }catch (Exception e){
+            e.printStackTrace();
+            modelAndView = createErrorModelAndView("There was an error retrieving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+
+    }
+
+
+
+
     @GetMapping("/ticketJson/{id}")
     public ResponseEntity fetchTicketByIdJSON(@PathVariable("id") int id) throws Exception {
         try{
@@ -198,6 +233,10 @@ Handle request to root of application
 
 
 
+
+
+
+
     @GetMapping("/ticketListJson")
     public ResponseEntity fetchAllTicketsJSON() throws Exception {
 
@@ -215,6 +254,8 @@ Handle request to root of application
         }
 
     }
+
+
 
     @DeleteMapping("/ticket/{id}")
     public ResponseEntity deleteTicket(@PathVariable("id") String id){
