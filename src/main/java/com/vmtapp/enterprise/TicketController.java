@@ -5,7 +5,9 @@ import com.vmtapp.enterprise.dto.Error;
 import com.vmtapp.enterprise.service.IPhotoService;
 import com.vmtapp.enterprise.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +48,7 @@ Handle request to root of application
 
         ModelAndView modelAndView = new ModelAndView();
         try{
+            ticket.setStatus("In Progress");
             ticketService.save(ticket);
         }catch(Exception e){
 
@@ -165,6 +168,94 @@ Handle request to root of application
         }
 
     }
+
+
+
+
+
+    @PostMapping("/solveTicket/{id}")
+    public ModelAndView solveTicket(@PathVariable("id") int id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+
+        try{
+            // This checks if the ticket exists, and if not, throws an exception
+            Optional<Ticket> optionalTicket = Optional.ofNullable(ticketService.fetchTicketById(id).orElseThrow(
+                    () -> new Exception("not found")
+            ));
+
+            // obviously this will only happen if ticket exists, so it's safe to convert optionalTicket to a Ticket object now
+            Ticket ticket = new Ticket();
+            ticket = optionalTicket.get();
+
+            ticket.setStatus("Solved");
+            ticketService.save(ticket);
+
+            modelAndView = fetchAllTickets();
+
+            return modelAndView;
+        }catch (Exception e){
+            e.printStackTrace();
+            modelAndView = createErrorModelAndView("There was an error retrieving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+            return modelAndView;
+        }
+
+    }
+
+
+
+
+    @GetMapping("/ticketJson/{id}")
+    public ResponseEntity fetchTicketByIdJSON(@PathVariable("id") int id) throws Exception {
+        try{
+            // This checks if the ticket exists, and if not, throws an exception
+            Optional<Ticket> optionalTicket = Optional.ofNullable(ticketService.fetchTicketById(id).orElseThrow(
+                    () -> new Exception("not found")
+            ));
+
+            // obviously this will only happen if ticket exists, so it's safe to convert optionalTicket to a Ticket object now
+            Ticket ticket = new Ticket();
+            ticket = optionalTicket.get();
+
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(ticket, headers, HttpStatus.OK);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
+
+
+
+
+
+    @GetMapping("/ticketListJson")
+    public ResponseEntity fetchAllTicketsJSON() throws Exception {
+
+        try{
+            List<Ticket> tickets = ticketService.fetchAllTickets();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity(tickets, headers, HttpStatus.OK);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
 
     @DeleteMapping("/ticket/{id}")
     public ResponseEntity deleteTicket(@PathVariable("id") String id){
