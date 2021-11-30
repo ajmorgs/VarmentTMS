@@ -2,7 +2,6 @@ package com.vmtapp.enterprise.service;
 
 import com.vmtapp.enterprise.dao.IPhotoDAO;
 import com.vmtapp.enterprise.dao.ITicketDao;
-import com.vmtapp.enterprise.dao.TicketSQLDAO;
 import com.vmtapp.enterprise.dto.Photo;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +47,6 @@ public class TicketService implements ITicketService{
         return userTickets;
     }
 
-
-
     public TicketService(){}
 
     public TicketService(ITicketDao ticketDao){
@@ -58,12 +55,8 @@ public class TicketService implements ITicketService{
     }
 
     @Override
-    public ArrayList<Ticket> fetchTicketsByAssignee(String assignee) {
-        ArrayList<Ticket> ticketsToReturn = new ArrayList<Ticket>();
-
-        Ticket ticket = new Ticket();
-
-        return ticketsToReturn;
+    public List<Ticket> fetchTicketsByAssignee(String assignee) {
+        return ticketDao.fetchTicketsByAssignee(assignee);
 
     }
 
@@ -93,11 +86,6 @@ public class TicketService implements ITicketService{
     @Override
     public Optional<Ticket> fetchTicketById(int id) throws Exception {
         return ticketDao.fetchTicketById(id);
-    }
-
-    @Override
-    public List<Ticket> fetchTicketByAssignee(String assignee) {
-        return ticketDao.fetchTicketByAssignee(assignee);
     }
 
     @Override

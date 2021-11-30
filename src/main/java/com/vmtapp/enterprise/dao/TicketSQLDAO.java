@@ -58,8 +58,16 @@ public class TicketSQLDAO implements ITicketDao {
     }
 
     @Override
-    public List<Ticket> fetchTicketByAssignee(String assignee) {
-        return ticketRepository.findByAssignee(assignee);
+    public List<Ticket> fetchTicketsByAssignee(String assignee) {
+        List<Ticket> allTickets = new ArrayList<>();
+        Iterable<Ticket> tickets = ticketRepository.findAll();
+        for (Ticket ticket : tickets) {
+            if(ticket.assignee.toLowerCase().contains(assignee.toLowerCase())){
+                allTickets.add(ticket);
+            }
+        }
+        return allTickets;
+
     }
   
     @Override

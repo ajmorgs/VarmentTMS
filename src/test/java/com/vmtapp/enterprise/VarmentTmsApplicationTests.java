@@ -156,23 +156,6 @@ class VarmentTmsApplicationTests {
         assertEquals(ticket, createdTicket);
     }
 
-//     @Test
-//        void getTicketById10() throws Exception {
-//         givenTicketDataIsAvailable();
-//            whenIdIs10();
-//            thenReturnTicket();
-//
-//     }
-//
-//    private void whenIdIs10() {
-//        ticket.setId(10);
-//    }
-//
-//    private void thenReturnTicket() throws Exception {
-//        Optional<Ticket> ticketToReturn = ticketService.fetchTicketById("10");
-//        assertEquals(ticket,ticketToReturn);
-//    }
-
  @Test
     void getTicketById10() throws Exception {
      givenTicketDataIsAvailable();
