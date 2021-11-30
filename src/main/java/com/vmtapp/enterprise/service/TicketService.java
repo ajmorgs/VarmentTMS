@@ -17,7 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class TicketService implements ITicketService {
+public class TicketService implements ITicketService{
 
     @Autowired
     private IPhotoDAO photoDAO;
@@ -29,9 +29,9 @@ public class TicketService implements ITicketService {
     public int checkUserRole(String email) {
         int statusCode = 0;
 
-        if (email.equals("johnsmith@company.com"))
+        if(email.equals("johnsmith@company.com"))
             statusCode = 1; // client
-        if (email.equals("janesmith@company.com"))
+        if(email.equals("janesmith@company.com"))
             statusCode = 2; // technician
 
         return statusCode;
@@ -50,10 +50,9 @@ public class TicketService implements ITicketService {
 
 
 
-    public TicketService() {
-    }
+    public TicketService(){}
 
-    public TicketService(ITicketDao ticketDao) {
+    public TicketService(ITicketDao ticketDao){
 
         this.ticketDao = ticketDao;
     }
@@ -86,7 +85,9 @@ public class TicketService implements ITicketService {
 
     @Override
     public List<Ticket> fetchAllTickets() throws IOException {
+
         return ticketDao.fetchAll();
+
     }
 
     @Override
@@ -105,8 +106,6 @@ public class TicketService implements ITicketService {
         photoDAO.save(photo);
         photoDAO.saveImage(imageFile, photo);
     }
-
-
 
     @Override
     public List<Ticket> fetchTicketsByDescription(String searchString) throws IOException {

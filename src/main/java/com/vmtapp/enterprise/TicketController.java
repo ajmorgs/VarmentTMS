@@ -53,6 +53,9 @@ Handle request to root of application
         }catch(Exception e){
 
             log.error(e.toString());
+            modelAndView = createErrorModelAndView("There was a problem saving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+
             modelAndView.setViewName("error");
             return modelAndView;
         }
@@ -79,11 +82,12 @@ Handle request to root of application
         return modelAndView;
     }
 
-    @RequestMapping(value = "/ticketsByDescription/{searchString}")
-    public ModelAndView fetchTicketsByDescription(Model model, @PathVariable String searchString){
+    @RequestMapping(value = "/ticketsByDescription")
+    public ModelAndView fetchTicketsByDescription(Model model, @RequestParam(value="searchTerm",required = false,defaultValue = "none") String searchTerm){
         ModelAndView modelAndView = new ModelAndView();
         try {
-            List<Ticket> tickets = ticketService.fetchTicketsByDescription(searchString);
+
+            List<Ticket> tickets = ticketService.fetchTicketsByDescription(searchTerm);
             model.addAttribute("tickets", tickets);
             modelAndView.setViewName("ticketList");
             return modelAndView;
