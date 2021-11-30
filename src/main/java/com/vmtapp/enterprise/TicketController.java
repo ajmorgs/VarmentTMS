@@ -75,7 +75,13 @@ Handle request to root of application
 
         }
         }
+        Ticket blank = new Ticket();
+        blank.setFirstName("");
+        blank.setLastName("");
+        blank.setDescription("");
+        blank.setEmail("");
         modelAndView.setViewName("start");
+        modelAndView.addObject(blank);
         return modelAndView;
     }
 
@@ -138,7 +144,6 @@ Handle request to root of application
     @GetMapping("/ticket/{id}")
     public ModelAndView fetchTicketById(@PathVariable("id") int id) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-
 
         try{
             // This checks if the ticket exists, and if not, throws an exception
