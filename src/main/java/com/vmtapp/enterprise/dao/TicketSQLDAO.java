@@ -30,23 +30,15 @@ public class TicketSQLDAO implements ITicketDao {
     @Override
     public Ticket save(Ticket ticket) {
         Ticket createdTicket = ticketRepository.save(ticket);
-        ProducerFactory pf = kafkaTemplate.getProducerFactory();
-        Map props = pf.getConfigurationProperties();
 
-        Iterator<Map.Entry<String, Object>> itr = props.entrySet().iterator();
-
-        while(itr.hasNext())
-        {
-            Map.Entry<String, Object> entry = itr.next();
-            System.out.println("Key = " + entry.getKey() +
-                    ", Value = " + entry.getValue());
-        }
-
-    // for(int i=0; i < props.size();i++){
-      //   System.out.println(props.key[i]);
-    // }
         kafkaTemplate.send("ticketIn","id", createdTicket.getId());
-        return createdTicket;
+        Ticket blank = new Ticket();
+        blank.setFirstName("");
+        blank.setLastName("");
+        blank.setDescription("");
+        blank.setEmail("");
+
+        return blank;
     }
 
     @Override
