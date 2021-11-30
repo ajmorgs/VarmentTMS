@@ -75,7 +75,7 @@ public class TicketSQLDAO implements ITicketDao {
         List<Ticket> allTickets = new ArrayList<>();
         Iterable<Ticket> tickets = ticketRepository.findAll();
         for (Ticket ticket : tickets) {
-            if(ticket.description.contains(searchString)){
+            if(ticket.description.toLowerCase().contains(searchString.toLowerCase())){
                 allTickets.add(ticket);
             }
         }
