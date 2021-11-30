@@ -13,51 +13,80 @@
 </div>
 
 <div class="container-fluid">
-    <div class="mt-3">
-        <h3>Ticket # <span th:text="${ticket.id}"></span></h3>
 
-        <p>
-            <span>ID:</span>
-            <span th:text="${ticket.id}"></span>
-        </p>
 
-        <p>
-            <span>Assignee:</span>
-            <span th:text="${ticket.assignee}"></span>
-        </p>
+    <div class="row mt-3">
 
-        <p>
-            <span>Description:</span>
-            <span th:text="${ticket.description}"></span>
-        </p>
+        <div class="col-4">
+            <table class="table table-striped w-auto">
+                <tbody>
+                <tr>
+                    <th scope="row">ID</th>
+                    <td><span th:text="${ticket.id}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Assignee</th>
+                    <td><span th:text="${ticket.assignee}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Title</th>
+                    <td><span th:text="${ticket.title}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Description</th>
+                    <td><span th:text="${ticket.description}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td><span th:text="${ticket.email}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Client Name</th>
+                    <td><span th:text="${ticket.firstName} + ' ' + ${ticket.lastName}"></span></td>
+                </tr>
+                <tr>
+                    <th scope="row">Status</th>
+                    <td><span th:text="${ticket.status}"></span></td>
+                </tr>
+                </tbody>
+            </table>
 
-        <p>
-            <span>Email:</span>
-            <span th:text="${ticket.email}"></span>
-        </p>
+            <form id="formContainer" action="#" th:action="@{${'/solveTicket/' + ticket.id}}" enctype="multipart/form-data" method="POST">
 
-        <p>
-            <span>Full Name:</span>
-            <span th:text="${ticket.firstName} + ' ' + ${ticket.lastName}"></span>
-        </p>
 
-        <p>
-            <span>Status:</span>
-            <span th:text="${ticket.status}"></span>
-        </p>
+                <div th:switch="${ticket.status}">
+                    <div th:case="'In Progress'">
+                        <button class="btn btn-success" id="buttonSolve" name="submit" type="submit" value="0" aria-label="Submit">Mark as Solved</button>
+                    </div>
+                    <div th:case="*">
+                        <button class="btn btn-primary disabled" id="buttonSolved" name="submit" type="submit" value="0" aria-label="Submit">Solved</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+        <div class="col-8">
+
+
+            <img th:src="@{${'/photos/' + photo.fileName}}" alt="Ticket photo"/>
+            <p>
+                <span>Photo:</span>
+                <span th:text="${photo.fileName}"></span>
+            </p>
+
+
+        </div>
+
 
 
     </div>
 
-    <div>
-        <p>
-            <span>Photo:</span>
-            <span th:text="${photo.fileName}"></span>
-        </p>
-        <img th:src="@{${'/photos/' + photo.fileName}}" alt="Ticket photo"/>
 
-
-    </div>
 </div>
 
 
