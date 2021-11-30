@@ -79,11 +79,12 @@ Handle request to root of application
         return modelAndView;
     }
 
-    @RequestMapping(value = "/ticketsByDescription/{searchString}")
-    public ModelAndView fetchTicketsByDescription(Model model, @PathVariable String searchString){
+    @RequestMapping(value = "/ticketsByDescription")
+    public ModelAndView fetchTicketsByDescription(Model model, @RequestParam(value="searchTerm",required = false,defaultValue = "none") String searchTerm){
         ModelAndView modelAndView = new ModelAndView();
         try {
-            List<Ticket> tickets = ticketService.fetchTicketsByDescription(searchString);
+
+            List<Ticket> tickets = ticketService.fetchTicketsByDescription(searchTerm);
             model.addAttribute("tickets", tickets);
             modelAndView.setViewName("ticketList");
             return modelAndView;
