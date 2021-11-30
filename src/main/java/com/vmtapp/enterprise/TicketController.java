@@ -63,20 +63,20 @@ Handle request to root of application
         Photo photo = new Photo();
 
         if(!imageFile.isEmpty()){
-        try{
+            try{
 
-            photo.setFileName(imageFile.getOriginalFilename());
-            photo.setTicket(ticket);
-            ticketService.saveImage(imageFile, photo);
-        }catch (IOException e){
+                photo.setFileName(imageFile.getOriginalFilename());
+                photo.setTicket(ticket);
+                ticketService.saveImage(imageFile, photo);
+            }catch (IOException e){
 
-            log.error(e.toString());
+                log.error(e.toString());
 
-            modelAndView = createErrorModelAndView("There was a problem saving the ticket",
-                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
-            return modelAndView;
+                modelAndView = createErrorModelAndView("There was a problem saving the ticket",
+                        "Please confirm that the details were correct and try again. If error persists, contact an admin");
+                return modelAndView;
 
-        }
+            }
         }
         Ticket blank = new Ticket();
         blank.setFirstName("");
@@ -124,8 +124,8 @@ Handle request to root of application
         }
     }
 
-    @RequestMapping("/ticket/{assignee}")
-    public ModelAndView fetchTicketsByAssignee(@PathVariable("assignee") String assignee) throws Exception{
+    @RequestMapping("/ticketsByAssignee")
+    public ModelAndView fetchTicketsByAssignee(Model model, @RequestParam(value="assignee",required = false,defaultValue = "none") String assignee) throws Exception{
         ModelAndView modelAndView = new ModelAndView();
         try {
             List<Ticket> tickets = ticketService.fetchTicketsByAssignee(assignee);
@@ -178,10 +178,6 @@ Handle request to root of application
 
     }
 
-
-
-
-
     @PostMapping("/solveTicket/{id}")
     public ModelAndView solveTicket(@PathVariable("id") int id) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
@@ -212,9 +208,6 @@ Handle request to root of application
 
     }
 
-
-
-
     @GetMapping("/ticketJson/{id}")
     public ResponseEntity fetchTicketByIdJSON(@PathVariable("id") int id) throws Exception {
         try{
@@ -240,12 +233,6 @@ Handle request to root of application
 
     }
 
-
-
-
-
-
-
     @GetMapping("/ticketListJson")
     public ResponseEntity fetchAllTicketsJSON() throws Exception {
 
@@ -262,13 +249,6 @@ Handle request to root of application
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-    }
-
-
-
-    @DeleteMapping("/ticket/{id}")
-    public ResponseEntity deleteTicket(@PathVariable("id") String id){
-        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping(value="/ticket", consumes="application/json", produces="application/json")

@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Optional;
 
 public interface ITicketService {
@@ -31,7 +30,7 @@ public interface ITicketService {
      * @param assignee
      * @return ArrayList<Ticket>
     * */
-    ArrayList<Ticket> fetchTicketsByAssignee(String assignee) throws Exception;
+    List<Ticket> fetchTicketsByAssignee(String assignee) throws Exception;
 
     Ticket save(Ticket ticket);
 
@@ -39,9 +38,6 @@ public interface ITicketService {
     List<Ticket> fetchAllTickets() throws IOException;
 
     Optional<Ticket> fetchTicketById(int id) throws Exception;
-
-
-    List<Ticket> fetchTicketByAssignee(String assignee);
 
     void saveImage(MultipartFile imageFile, Photo photo) throws IOException;
 

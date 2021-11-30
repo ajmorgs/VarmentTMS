@@ -12,7 +12,7 @@ public interface ITicketDao {
 
     Optional<Ticket> fetchTicketById(int id);
 
-    List<Ticket> fetchTicketByAssignee(String assignee);
+    List<Ticket> fetchTicketsByAssignee(String assignee);
 
     List<Ticket> fetchTicketsByDescription(String searchString);
 
