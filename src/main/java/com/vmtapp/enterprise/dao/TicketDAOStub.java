@@ -1,7 +1,9 @@
 package com.vmtapp.enterprise.dao;
 
 import com.vmtapp.enterprise.dto.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class TicketDAOStub implements ITicketDao {
     @Override
     public Ticket save(Ticket ticket) {
         allTickets.add(ticket);
+
         return ticket;
     }
 
@@ -51,6 +54,8 @@ public class TicketDAOStub implements ITicketDao {
         return allTickets;
     }
 
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
 
 
 

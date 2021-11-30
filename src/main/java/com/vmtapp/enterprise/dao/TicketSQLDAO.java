@@ -3,11 +3,11 @@ package com.vmtapp.enterprise.dao;
 import com.vmtapp.enterprise.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /*
 TicketSQLDAO provides implementation of ITicketDao interface
@@ -24,9 +24,28 @@ public class TicketSQLDAO implements ITicketDao {
     @Autowired
     TicketRepository ticketRepository;
 
+    @Autowired
+    private KafkaTemplate<String, Integer> kafkaTemplate;
+
     @Override
     public Ticket save(Ticket ticket) {
         Ticket createdTicket = ticketRepository.save(ticket);
+        ProducerFactory pf = kafkaTemplate.getProducerFactory();
+        Map props = pf.getConfigurationProperties();
+
+        Iterator<Map.Entry<String, Object>> itr = props.entrySet().iterator();
+
+        while(itr.hasNext())
+        {
+            Map.Entry<String, Object> entry = itr.next();
+            System.out.println("Key = " + entry.getKey() +
+                    ", Value = " + entry.getValue());
+        }
+
+    // for(int i=0; i < props.size();i++){
+      //   System.out.println(props.key[i]);
+    // }
+        kafkaTemplate.send("ticketIn","id", createdTicket.getId());
         return createdTicket;
     }
 
@@ -42,15 +61,13 @@ public class TicketSQLDAO implements ITicketDao {
 
     @Override
     public Optional<Ticket> fetchTicketById(int id) {
-        Optional<Ticket> ticketToReturn = ticketRepository.findById(Integer.valueOf(id));
-        return ticketToReturn;
+        return ticketRepository.findById(id);
 
     }
 
     @Override
     public List<Ticket> fetchTicketByAssignee(String assignee) {
-        List<Ticket> ticketsToReturn = ticketRepository.findByAssignee(assignee);
-        return ticketsToReturn;
+        return ticketRepository.findByAssignee(assignee);
     }
   
     @Override
@@ -58,7 +75,7 @@ public class TicketSQLDAO implements ITicketDao {
         List<Ticket> allTickets = new ArrayList<>();
         Iterable<Ticket> tickets = ticketRepository.findAll();
         for (Ticket ticket : tickets) {
-            if(ticket.description.indexOf(searchString) > -1){
+            if(ticket.description.contains(searchString)){
                 allTickets.add(ticket);
             }
         }

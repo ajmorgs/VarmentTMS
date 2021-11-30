@@ -50,6 +50,9 @@ Handle request to root of application
         }catch(Exception e){
 
             log.error(e.toString());
+            modelAndView = createErrorModelAndView("There was a problem saving the ticket",
+                    "Please confirm that the details were correct and try again. If error persists, contact an admin");
+
             modelAndView.setViewName("error");
             return modelAndView;
         }
