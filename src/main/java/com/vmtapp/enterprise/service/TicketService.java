@@ -20,10 +20,10 @@ import java.util.regex.Pattern;
 public class TicketService implements ITicketService{
 
     @Autowired
-    TicketSQLDAO ticketSQLDAO;
+    private IPhotoDAO photoDAO;
 
     @Autowired
-    private IPhotoDAO photoDAO;
+    private ITicketDao ticketDao;
 
     @Override
     public int checkUserRole(String email) {
@@ -48,8 +48,7 @@ public class TicketService implements ITicketService{
         return userTickets;
     }
 
-    @Autowired
-    private ITicketDao ticketDao;
+
 
     public TicketService(){}
 
@@ -86,7 +85,9 @@ public class TicketService implements ITicketService{
 
     @Override
     public List<Ticket> fetchAllTickets() throws IOException {
-        return ticketSQLDAO.fetchAll();
+
+        return ticketDao.fetchAll();
+
     }
 
     @Override
@@ -108,6 +109,6 @@ public class TicketService implements ITicketService{
 
     @Override
     public List<Ticket> fetchTicketsByDescription(String searchString) throws IOException {
-        return ticketSQLDAO.fetchTicketsByDescription(searchString);
+        return ticketDao.fetchTicketsByDescription(searchString);
     }
 }

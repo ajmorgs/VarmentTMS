@@ -68,6 +68,12 @@
         </div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
+                <span class="input-group-text" id="title">Title</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Title" aria-describedby="inputGroup-sizing-sm" name="title" th:field="*{title}">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
                 <span class="input-group-text" id="description">Description</span>
             </div>
             <input type="text" class="form-control" aria-label="Description" aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{description}">
